@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UBridge · UWorld ⇄ Anki add-on</title>
+<meta name="description" content="A free Anki add-on that turns your Anki cards into ready-to-paste blocks of UWorld QIDs, then takes the questions you missed back to the cards that teach them.">
+<meta name="author" content="Matthew Correll">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#08121e" media="(prefers-color-scheme: dark)">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/brand/icon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
+
+<!-- GitHub Pages project site. Chat apps and social sites need the absolute og:image URL. -->
+<link rel="canonical" href="https://mattccorrell-svg.github.io/ubridge/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UBridge">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://mattccorrell-svg.github.io/ubridge/">
+<meta property="og:title" content="UBridge: Unofficially the best UWorld ⇄ Anki add-on">
+<meta property="og:description" content="Free and independent, not affiliated with UWorld, AnKing or Anki. Turn Anki cards into UWorld blocks, then send your misses back to the cards that teach them.">
+<meta property="og:image" content="https://mattccorrell-svg.github.io/ubridge/assets/brand/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="UBridge logo with the line “Unofficially the best UWorld ⇄ Anki add-on” and a note: independent tool, not affiliated with UWorld, AnKing or Anki.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UBridge: Unofficially the best UWorld ⇄ Anki add-on">
+<meta name="twitter:description" content="Free and independent, not affiliated with UWorld, AnKing or Anki. Turn Anki cards into UWorld blocks, then send your misses back to the cards that teach them.">
+<meta name="twitter:image" content="https://mattccorrell-svg.github.io/ubridge/assets/brand/og-image.png">
+<meta name="twitter:image:alt" content="UBridge logo with the line “Unofficially the best UWorld ⇄ Anki add-on” and a note: independent tool, not affiliated with UWorld, AnKing or Anki.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Headings use Helvetica Neue / Helvetica where the system has it; Inter Tight is the stand-in elsewhere -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400..700;1,500&family=Inter+Tight:wght@600..800&family=JetBrains+Mono:wght@500..600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("ub-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- Icon sprite and the UBridge mark (redrawn from assets/brand/mark.svg with theme tokens) -->
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <clipPath id="ub-not-cards"><path clip-rule="evenodd" d="M-50 -50H1320V476H-50ZM151.4 148.3L385.7 90.4A15.8 15.8 0 0 1 404.9 102L450 286.5A15.8 15.8 0 0 1 438.4 305.7L202.3 362.9A15.8 15.8 0 0 1 183.2 351.2L139.8 167.3A15.8 15.8 0 0 1 151.4 148.3ZM937.1 92.8L1165.2 146.1A15.8 15.8 0 0 1 1176.9 165.6L1132.2 334.3A15.8 15.8 0 0 1 1113.6 345.7L884.3 298.2A15.8 15.8 0 0 1 872.2 278.7L918.2 104.2A15.8 15.8 0 0 1 937.1 92.8Z"/></clipPath>
+    <clipPath id="ub-behind-card"><path clip-rule="evenodd" d="M-50 -50H1320V476H-50ZM943.5 65.3L1171.6 118.6A44.1 44.1 0 0 1 1204.2 172.9L1159.5 341.5A44.1 44.1 0 0 1 1107.9 373.4L878.5 325.9A44.1 44.1 0 0 1 844.8 271.4L890.8 97A44.1 44.1 0 0 1 943.5 65.3Z"/></clipPath>
+  </defs>
+  <symbol id="ub-mark" viewBox="0 0 1270 426">
+    <g clip-path="url(#ub-behind-card)">
+      <path class="mk-stack-back" d="M962.2 88.4L1240.4 193.7A33.6 33.6 0 0 1 1258.4 240.3L1176.4 400.9A33.6 33.6 0 0 1 1134.5 417L934.4 340.5A33.6 33.6 0 0 1 912.8 308.5L916.8 119.1A33.6 33.6 0 0 1 962.2 88.4Z"/>
+      <path class="mk-stack-mid" d="M944.2 74.6L1224.1 165A24.8 24.8 0 0 1 1239.5 198L1164.7 379.7A24.8 24.8 0 0 1 1134.9 394.1L941.5 338.2A24.8 24.8 0 0 1 923.7 315.8L911.8 99.6A24.8 24.8 0 0 1 944.2 74.6Z"/>
+    </g>
+    <g class="mk-blue" fill="none">
+      <g clip-path="url(#ub-not-cards)" stroke-width="30">
+        <path d="M425 215A317.9 317.9 0 0 1 903 219.8" stroke-width="29.8"/>
+        <path d="M448 291.6A343.9 343.9 0 0 1 877 291" stroke-width="30.9"/>
+        <path d="M547.5 130.4V236.1M661.6 109.1V216.2M775.5 130V235.2"/>
+      </g>
+      <g stroke-width="28.3">
+        <path d="M148 134.5L382.3 76.7A30 30 0 0 1 418.6 98.7L463.8 283.2A30 30 0 0 1 441.7 319.5L205.7 376.7A30 30 0 0 1 169.4 354.4L126 170.6A30 30 0 0 1 148 134.5Z"/>
+        <path d="M940.3 79.1L1168.4 132.4A30 30 0 0 1 1190.6 169.3L1145.8 337.9A30 30 0 0 1 1110.8 359.6L881.4 312.1A30 30 0 0 1 858.5 275.1L904.5 100.6A30 30 0 0 1 940.3 79.1Z"/>
+      </g>
+      <g stroke-linecap="round">
+        <path d="M151.5 23.7L160.6 76.5" stroke-width="33.1"/>
+        <path d="M69 62.8L103.4 100.3" stroke-width="32.7"/>
+        <path d="M25.8 139.4L74.6 151.4" stroke-width="31.7"/>
+      </g>
+      <path stroke-width="27.3" stroke-linecap="round" transform="translate(225 221) rotate(-15.7)" d="M-22.8 -30.3A30.8 30.8 0 0 1 35.9 -12.1C33.3 -1.2 -0.8 5.2 -0.8 21V21"/>
+    </g>
+    <circle class="mk-dot" cx="237.6" cy="273.3" r="14.9"/>
+    <g class="mk-soft" fill="none" stroke-linecap="round">
+      <path d="M297.1 176.8L370.5 157.5" stroke-width="29.9"/>
+      <path d="M953.6 176.8L1106.4 211.6" stroke-width="31.9"/>
+      <path d="M308.9 231.5L382.7 212" stroke-width="30"/>
+      <path d="M940.3 237.9L1091 271" stroke-width="33.4"/>
+      <path d="M320.1 286.5L395.4 266.6" stroke-width="30.4"/>
+      <path d="M220.9 318.7L276.3 304.4" stroke-width="28.2"/>
+    </g>
+  </symbol>
+  <symbol id="i-arrow" viewBox="0 0 20 20"><path d="M4 10h11.5M11 5.5l4.5 4.5-4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-download" viewBox="0 0 20 20"><path d="M10 3.2v9.6M5.9 8.9l4.1 4.1 4.1-4.1M4 16.6h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 20 20"><path d="M4.5 10.5l3.8 3.8 7.2-8.3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-yes" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M5.6 10.4l3 3 5.8-6.6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-no" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9.1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.2 10h7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-soon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9.1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 5.6V10l2.9 1.9" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 20 20"><rect x="6.5" y="6.5" width="10" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M13.5 4.5v-.5a1.5 1.5 0 0 0-1.5-1.5H5a1.5 1.5 0 0 0-1.5 1.5v7A1.5 1.5 0 0 0 5 12.5h.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-external" viewBox="0 0 20 20"><path d="M11 4h5v5M16 4l-7 7M14 12v3a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 4 15V7.5A1.5 1.5 0 0 1 5.5 6H8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4.5V8.5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4.3l2.8 1.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-catchup" viewBox="0 0 24 24"><path d="M4 6.5h11M4 12h11M4 17.5h7M18.5 14.5v6M15.5 17.5h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 6l12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-first" viewBox="0 0 24 24"><path d="M5 4.5h14M12 20V9.5m-5 5 5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-window" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6.5" cy="7" r="1" fill="currentColor"/><circle cx="9.5" cy="7" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-keys" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6.5 10.2h.01M10 10.2h.01M13.5 10.2h.01M17.5 10.2h.01M7.5 14.5h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></symbol>
+  <symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></symbol>
+</svg>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ======================= nav ======================= -->
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a class="wordmark" href="#top" aria-label="UBridge, back to top">
+      <svg class="wm-mark" viewBox="0 0 1270 426" aria-hidden="true" focusable="false"><use href="#ub-mark"/></svg>
+      <span class="wm-text" aria-hidden="true">
+        <span class="wm-name"><span class="wm-u">U</span><span class="wm-b">Bridge</span></span>
+        <span class="wm-tag">Questions <span class="wm-arrows">⇄</span> Cards</span>
+      </span>
+    </a>
+    <nav class="site-nav" id="nav" aria-label="Main">
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#compare">Compare</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn theme-toggle" type="button" data-mode="system" aria-label="Theme: match system" title="Change theme">
+        <svg class="ti ti-system" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 20h8M12 16.5V20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 7.5a3 3 0 0 0 0 6z" fill="currentColor"/></svg>
+        <svg class="ti ti-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="ti ti-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </button>
+      <a class="btn btn-primary btn-sm btn-dl" data-href="downloadUrl" href="downloads/ubridge.ankiaddon" download="ubridge.ankiaddon" data-dl data-when="dl-b" aria-label="Download UBridge for Anki"><svg aria-hidden="true"><use href="#i-download"/></svg>Download</a>
+      <a class="btn btn-primary btn-sm" href="#install" data-when="dl-a" hidden>Get UBridge</a>
+      <button class="icon-btn menu-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+        <svg class="mi-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+        <svg class="mi-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+<!-- ======================= hero ======================= -->
+<section class="hero" id="hero" aria-labelledby="hero-title">
+  <span class="anchor-alias" id="proof" aria-hidden="true"></span>
+  <div class="container hero-copy">
+    <h1 id="hero-title">
+      <span class="h1-line"><span class="w h1-accent" style="--w:0">Unofficially<svg class="swoosh" viewBox="0 0 230 10" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M3 7.4C55 3.2 130 1.9 227 4.4"/></svg></span> <span class="w" style="--w:1">the</span> <span class="w" style="--w:2">best</span></span>
+      <span class="h1-line"><span class="w" style="--w:3">UWorld</span> <span class="w h1-arrows" style="--w:4" aria-hidden="true"><svg viewBox="0 0 48 40"><path d="M5 13h36M32 5l9 8-9 8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M43 28H7m9-8-9 8 9 8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".6"/></svg></span><span class="visually-hidden">and</span> <span class="w" style="--w:5">Anki</span> <span class="w" style="--w:6">add-on.</span></span>
+    </h1>
+    <p class="indep-note"><strong>Unofficial, as in independent:</strong> not affiliated with or endorsed by UWorld, AnKing or Anki. <a class="indep-link" href="#compare">Why “the best”?<span aria-hidden="true"> →</span></a></p>
+    <p class="hero-lead">Turn your Anki cards into ready-to-paste UWorld blocks, then send your misses back to the cards that teach them.</p>
+
+    <!-- With the file to download (UB_CONFIG.downloadUrl) -->
+    <div class="hero-ctas" data-when="dl-b">
+      <a class="btn btn-primary btn-lg btn-cta" data-href="downloadUrl" href="downloads/ubridge.ankiaddon" download="ubridge.ankiaddon" data-dl><svg aria-hidden="true"><use href="#i-download"/></svg>Download for Anki</a>
+      <a class="arrow-link hero-more" href="#how-it-works">See how it works<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <ul class="facts dl-facts" data-when="dl-b" aria-label="About the download">
+      <li>Free</li>
+      <li>Version <span data-fill="downloadVersion">1.0</span></li>
+      <li>Anki 2.1.50+ on Mac and Windows</li>
+    </ul>
+
+    <!-- Without a file to download: AnkiWeb only -->
+    <div class="hero-ctas" data-when="dl-a anki-a" hidden>
+      <a class="btn btn-primary btn-lg btn-cta" href="#how-it-works">See how it works<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <span class="soon-pill">Coming soon to AnkiWeb</span>
+    </div>
+    <div class="hero-ctas" data-when="dl-a anki-b" hidden>
+      <a class="btn btn-primary btn-lg btn-cta" href="#install">Get the install code<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="arrow-link hero-more" href="#how-it-works">See how it works<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <ul class="facts" data-when="dl-a" hidden>
+      <li>Free</li>
+      <li>No account</li>
+      <li>Anki 2.1.50 or newer on Mac and Windows</li>
+    </ul>
+  </div>
+
+  <div class="container hero-visual">
+    <div class="hero-shot">
+      <!-- One quiet touch of the logo's bridge: a thin arch over the window -->
+      <svg class="hero-arc" viewBox="0 0 1000 100" aria-hidden="true" focusable="false"><path pathLength="1" d="M40 96A1500 1500 0 0 1 960 96"/></svg>
+      <figure class="win">
+        <picture class="only-light">
+          <source type="image/webp" srcset="assets/screens/find-questions-light@1200.webp 1200w, assets/screens/find-questions-light@2x.webp 2400w"
+                  sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px">
+          <img src="assets/screens/find-questions-light@2x.png" width="1200" height="895" loading="lazy" fetchpriority="high" decoding="async"
+               alt="UBridge’s Find Questions tab. On the left, the B&amp;B Cardio topic is ticked and the high-yield filter is on. On the right, numbered blocks of UWorld question IDs, each with Copy and Copy &amp; mark used buttons. Block 1 is marked Used and block 2 is Up next.">
+        </picture>
+        <picture class="only-dark">
+          <source type="image/webp" srcset="assets/screens/find-questions-dark@1200.webp 1200w, assets/screens/find-questions-dark@2x.webp 2400w"
+                  sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px">
+          <img src="assets/screens/find-questions-dark@2x.png" width="1200" height="895" loading="lazy" fetchpriority="high" decoding="async"
+               alt="UBridge’s Find Questions tab. On the left, the B&amp;B Cardio topic is ticked and the high-yield filter is on. On the right, numbered blocks of UWorld question IDs, each with Copy and Copy &amp; mark used buttons. Block 1 is marked Used and block 2 is Up next.">
+        </picture>
+      </figure>
+      <!-- Both copies are lazy so the other theme's never downloads; the one on show loads right away -->
+      <script>document.querySelectorAll(".hero-shot img").forEach(function (i) { if (i.offsetParent) i.loading = "eager"; });</script>
+      <p class="hero-caption"><span class="ui">Find Questions</span>, with blocks ready to paste into UWorld. Demo data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= how it works ======================= -->
+<section class="section section--alt how" id="how-it-works" aria-labelledby="how-title">
+  <span class="anchor-alias" id="loop" aria-hidden="true"></span><span class="anchor-alias" id="two-ways" aria-hidden="true"></span>
+  <div class="container" data-stagger="110">
+    <div class="section-head">
+      <h2 class="r" id="how-title">Anki to UWorld, and back</h2>
+      <p class="lead r">Two tabs in one window: <span class="ui">Find Questions</span> takes you there, <span class="ui">Find Cards</span> brings you back.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step-group">
+        <h3 class="group-label r" id="fq-title"><span class="ui">Find Questions</span><span class="sep" aria-hidden="true">·</span><span class="visually-hidden">: </span><span class="dir">Anki <span aria-hidden="true">→</span><span class="visually-hidden">to</span> UWorld</span></h3>
+        <ol class="step-list" aria-labelledby="fq-title">
+          <li class="step r"><span class="step-num" aria-hidden="true">1</span><h4>Pick what to practice</h4><p>Tick topics, or search in Anki’s Browser.</p></li>
+          <li class="step r"><span class="step-num" aria-hidden="true">2</span><h4>Copy a block into UWorld</h4><p>Click <span class="ui">Copy &amp; mark used</span>, then paste into a Custom test.</p></li>
+        </ol>
+      </div>
+      <div class="step-group">
+        <h3 class="group-label r" id="fc-title"><span class="ui">Find Cards</span><span class="sep" aria-hidden="true">·</span><span class="visually-hidden">: </span><span class="dir">UWorld <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Anki</span></h3>
+        <ol class="step-list" start="3" aria-labelledby="fc-title">
+          <li class="step r"><span class="step-num" aria-hidden="true">3</span><h4>Bring your misses back</h4><p>Paste the IDs you missed, or send them from Chrome<span data-when="chrome-a"> (coming soon)</span>.</p></li>
+          <li class="step r"><span class="step-num" aria-hidden="true">4</span><h4>Study the cards that teach them</h4><p>Open them in the Browser, unsuspend them or make a review deck.</p></li>
+        </ol>
+      </div>
+    </div>
+
+    <figure class="how-shot r">
+      <div class="frame crop only-light">
+        <picture>
+          <source type="image/webp" srcset="assets/screens/find-cards-light@2x.webp">
+          <img src="assets/screens/find-cards-light@2x.png" width="1200" height="906" loading="lazy" decoding="async"
+               alt="Close-up of Find Cards: 74 Anki cards found from 12 questions, with Show in Browser, More options and 181 related cards, and a note that the 12 questions are marked as done, so new blocks skip them. Demo data.">
+        </picture>
+      </div>
+      <div class="frame crop only-dark">
+        <picture>
+          <source type="image/webp" srcset="assets/screens/find-cards-dark@2x.webp">
+          <img src="assets/screens/find-cards-dark@2x.png" width="1200" height="906" loading="lazy" decoding="async"
+               alt="Close-up of Find Cards: 74 Anki cards found from 12 questions, with Show in Browser, More options and 181 related cards, and a note that the 12 questions are marked as done, so new blocks skip them. Demo data.">
+        </picture>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ======================= extension ======================= -->
+<section class="section extension" id="extension" aria-labelledby="extension-title">
+  <div class="container ext-grid">
+    <div class="ext-copy">
+      <h2 class="r" id="extension-title">One click from UWorld results to Anki</h2>
+      <p class="lead r">With the optional Chrome extension, click <span class="ui">Missed <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Anki</span> on a UWorld results page, and <span class="ui">Find Cards</span> opens in Anki with the questions you missed.</p>
+      <ul class="bullets">
+        <li class="r">Send <span class="ui">Missed</span>, <span class="ui">Missed + marked</span> or <span class="ui">All questions</span>.</li>
+        <li class="r"><span class="ui">Log on UBridge</span> catches up an old test.</li>
+        <li class="r">Dots on Previous Tests show which tests you’ve sent.</li>
+      </ul>
+      <div class="status-row r" data-when="chrome-a">
+        <span class="soon-pill">Coming soon to the Chrome Web Store</span>
+        <p>Without it, you paste question IDs into Find Cards.</p>
+      </div>
+      <div class="status-row r" data-when="chrome-b" hidden>
+        <a class="btn btn-primary btn-lg" data-href="chromeStoreUrl" href="#install" target="_blank" rel="noopener">Add to Chrome <svg aria-hidden="true"><use href="#i-external"/></svg></a>
+        <p>Free and optional. Works with Chrome 102 or newer.</p>
+      </div>
+      <p class="more-link r"><a class="arrow-link" href="#privacy-extension">What it reads and keeps<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+    </div>
+
+    <figure class="ext-shot r r--side" data-i="2">
+      <div class="frame">
+        <picture class="only-light">
+          <source type="image/webp" srcset="assets/screens/extension-popup-light@2x.webp">
+          <img src="assets/screens/extension-popup-light@2x.png" width="320" height="441" loading="lazy" decoding="async"
+               alt="The UBridge Chrome extension popup on a UWorld results page. It says Connected to Anki and offers Missed, Missed + marked, Marked, All and Log on UBridge, each with a count.">
+        </picture>
+        <picture class="only-dark">
+          <source type="image/webp" srcset="assets/screens/extension-popup-dark@2x.webp">
+          <img src="assets/screens/extension-popup-dark@2x.png" width="320" height="441" loading="lazy" decoding="async"
+               alt="The UBridge Chrome extension popup on a UWorld results page. It says Connected to Anki and offers Missed, Missed + marked, Marked, All and Log on UBridge, each with a count.">
+        </picture>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ======================= features ======================= -->
+<section class="section section--alt features" id="features" aria-labelledby="features-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="r" id="features-title">More ways it saves you clicks</h2>
+    </div>
+    <ul class="feature-grid">
+      <li class="feature r"><svg class="f-icon" aria-hidden="true"><use href="#i-history"/></svg><h3>Question history</h3><p>See what you’ve done. Undo it or export it.</p></li>
+      <li class="feature r"><svg class="f-icon" aria-hidden="true"><use href="#i-catchup"/></svg><h3>Catch up on past tests</h3><p>Paste old tests once. New blocks skip them.</p></li>
+      <li class="feature r"><svg class="f-icon" aria-hidden="true"><use href="#i-ban"/></svg><h3>When UWorld won’t take some</h3><p>Paste its “not active” message. Those IDs stay out.</p></li>
+      <li class="feature r"><svg class="f-icon" aria-hidden="true"><use href="#i-first"/></svg><h3>Study these first</h3><p>Unsuspend cards and move new ones to the front (default order).</p></li>
+      <li class="feature r"><svg class="f-icon" aria-hidden="true"><use href="#i-window"/></svg><h3>UWorld in an Anki window</h3><p>UWorld’s own site, with UBridge one click away.</p></li>
+      <li class="feature r"><svg class="f-icon" aria-hidden="true"><use href="#i-keys"/></svg><h3>Easy to find in Anki</h3><p>A top-bar link, a Browser button and a shortcut.</p></li>
+      <li class="feature r"><svg class="f-icon" aria-hidden="true"><use href="#i-target"/></svg><h3>One exam at a time</h3><p>Each exam keeps its own history and progress.</p></li>
+      <li class="feature r"><svg class="f-icon" aria-hidden="true"><use href="#i-theme"/></svg><h3>Light, dark, your layout</h3><p>Follows Anki’s theme. Side by side or one column.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= compare ======================= -->
+<section class="section compare" id="compare" aria-labelledby="compare-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="r" id="compare-title">Why “unofficially the best”?</h2>
+      <p class="lead r"><strong>Unofficially, because UBridge is independent</strong>, not affiliated with UWorld, AnKing or Anki. <strong>The best, because of this table.</strong></p>
+    </div>
+
+    <div class="table-wrap" role="region" aria-labelledby="compare-caption">
+      <span class="ub-col r r--col" aria-hidden="true"></span>
+      <table class="compare-table" role="table">
+        <caption id="compare-caption" class="visually-hidden">UBridge compared with 25 UWorld-related add-ons on AnkiWeb, October 2026</caption>
+        <thead role="rowgroup">
+          <tr role="row" class="r">
+            <th role="columnheader" scope="col">What you get</th>
+            <th role="columnheader" scope="col" class="col-ub">UBridge</th>
+            <th role="columnheader" scope="col">Other add-ons (25 surveyed)</th>
+          </tr>
+        </thead>
+        <tbody role="rowgroup">
+          <tr role="row" class="r r--row">
+            <th role="rowheader" scope="row">Works both ways, Anki <span aria-hidden="true">→</span><span class="visually-hidden">to</span> UWorld and back</th>
+            <td role="cell" class="col-ub" data-label="UBridge"><span class="cell"><svg class="yes" aria-hidden="true"><use href="#i-yes"/></svg><span>Yes, in one window</span></span></td>
+            <td role="cell" class="col-other" data-label="Other add-ons"><span class="val">3 of 25. Most go one way.</span></td>
+          </tr>
+          <tr role="row" class="r r--row">
+            <th role="rowheader" scope="row">Ready-to-paste UWorld blocks</th>
+            <td role="cell" class="col-ub" data-label="UBridge"><span class="cell"><svg class="yes" aria-hidden="true"><use href="#i-yes"/></svg><span>Yes, 40 per block by default</span></span></td>
+            <td role="cell" class="col-other" data-label="Other add-ons"><span class="val">Rare. Most Anki <span aria-hidden="true">→</span><span class="visually-hidden">to</span> UWorld tools copy one long list.</span></td>
+          </tr>
+          <tr role="row" class="r r--row">
+            <th role="rowheader" scope="row"><span class="ui">Best first</span> order, and blocks from cards you keep forgetting</th>
+            <td role="cell" class="col-ub" data-label="UBridge"><span class="cell"><svg class="yes" aria-hidden="true"><use href="#i-yes"/></svg><span>Yes, both</span></span></td>
+            <td role="cell" class="col-other" data-label="Other add-ons"><span class="val">Rare</span></td>
+          </tr>
+          <tr role="row" class="r r--row">
+            <th role="rowheader" scope="row">Skips questions you’ve already done</th>
+            <td role="cell" class="col-ub" data-label="UBridge"><span class="cell"><svg class="yes" aria-hidden="true"><use href="#i-yes"/></svg><span>Yes, with an undoable history</span></span></td>
+            <td role="cell" class="col-other" data-label="Other add-ons"><span class="val">Some</span></td>
+          </tr>
+          <tr role="row" class="r r--row">
+            <th role="rowheader" scope="row">Handles UWorld’s “not active” message</th>
+            <td role="cell" class="col-ub" data-label="UBridge"><span class="cell"><svg class="yes" aria-hidden="true"><use href="#i-yes"/></svg><span>Yes</span></span></td>
+            <td role="cell" class="col-other" data-label="Other add-ons"><span class="val">Rare</span></td>
+          </tr>
+          <tr role="row" class="r r--row">
+            <th role="rowheader" scope="row">A companion Chrome extension for UWorld</th>
+            <td role="cell" class="col-ub" data-label="UBridge"><span class="cell" data-when="chrome-a"><svg class="soon" aria-hidden="true"><use href="#i-soon"/></svg><span class="soon-inline">Coming soon to the Chrome Web Store</span></span><span class="cell" data-when="chrome-b" hidden><svg class="yes" aria-hidden="true"><use href="#i-yes"/></svg><span>Yes, optional</span></span></td>
+            <td role="cell" class="col-other" data-label="Other add-ons"><span class="val">3 of 25</span></td>
+          </tr>
+          <tr role="row" class="r r--row">
+            <th role="rowheader" scope="row">Other question banks, like AMBOSS or NBME</th>
+            <td role="cell" class="col-ub" data-label="UBridge"><span class="cell"><svg class="no" aria-hidden="true"><use href="#i-no"/></svg><span>No, UWorld only</span></span></td>
+            <td role="cell" class="col-other" data-label="Other add-ons"><span class="val">A few handle AMBOSS</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source-note r">Source: a survey of 25 UWorld-related add-ons on AnkiWeb, October 2026, from listings and code. Block rows compare the 12 that go Anki <span aria-hidden="true">→</span><span class="visually-hidden">to</span> UWorld. Counts only where the evidence was clear.</p>
+  </div>
+</section>
+
+<!-- ======================= privacy ======================= -->
+<section class="section section--alt privacy" id="privacy" aria-labelledby="privacy-title">
+  <div class="container split">
+    <div class="split-head">
+      <h2 class="r" id="privacy-title">Your studying stays on your computer</h2>
+    </div>
+    <div class="split-body">
+      <ul class="promises">
+        <li class="r"><strong>Runs on your computer.</strong> No account, no analytics, no study data sent anywhere.</li>
+        <li class="r"><strong>Question IDs only.</strong> It never reads or copies UWorld questions, answers or explanations.</li>
+        <li class="r"><strong>Your UWorld password stays with UWorld.</strong> You sign in on UWorld’s own page.</li>
+        <li class="r"><strong>A locked-down Chrome link.</strong> Off until you turn it on, <span class="mono">127.0.0.1</span> only, and it can’t change cards.</li>
+        <li class="r"><strong>Nothing behind your back.</strong> It never changes cards without a click, or grades them for you.</li>
+      </ul>
+      <details class="disclosure r" id="privacy-extension">
+        <summary>Everything the Chrome extension reads and keeps<span class="pm" aria-hidden="true"></span></summary>
+        <div class="disclosure-body">
+          <p>When you click, it reads question IDs and whether each was right, wrong or marked. To show which tests you’ve logged, it also reads each test’s name, ID and date, and the UWorld subscription number in the page’s address, on UWorld’s results and Previous Tests pages. It never keeps or sends question text, answers or explanations, and it talks only to Anki on your computer.</p>
+          <p>It keeps its button settings in Chrome’s own storage, which Chrome can sync with your Google account if you use Chrome sync. It also keeps, in Chrome on this computer: the names and dates of your recent UWorld tests, so a test you send arrives dated; a list of which tests are logged, so the dots still show while Anki is closed (setting <span class="ui">Logged marks</span> to Off in its popup deletes it); and your UWorld course’s page address. It doesn’t store question IDs.</p>
+          <p>The link only works after you turn on <span class="ui">Connect the UBridge Chrome extension</span> in UBridge’s <span class="ui">Settings</span>. It listens only on <span class="mono">127.0.0.1</span>, answers only the UBridge extension, and can’t add, change or delete cards.</p>
+          <p>In the add-on: your Question history is saved in a file on your computer. The optional UWorld window keeps your UWorld sign-in on this computer so you stay logged in, so on a shared computer, use UWorld in your normal browser instead.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= install ======================= -->
+<section class="section install" id="install" aria-labelledby="install-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="r" id="install-title">Get UBridge</h2>
+      <p class="lead r">Free, with nothing to sign up for. The Chrome extension is an optional extra.</p>
+    </div>
+
+    <div class="install-grid">
+      <article class="install-card install-card--anki r r--lift" aria-labelledby="card-addon-title">
+        <div class="card-top">
+          <h3 id="card-addon-title">UBridge for Anki</h3>
+          <p class="subtitle">The add-on. This is all you need.</p>
+        </div>
+
+        <!-- On AnkiWeb (UB_CONFIG.ankiwebId): the install code comes first, since that copy updates itself -->
+        <div class="state" data-when="anki-b" hidden>
+          <span class="badge badge--live">On AnkiWeb, with automatic updates</span>
+          <div class="code-box">
+            <code id="install-code" data-fill="ankiwebId"></code>
+            <button class="btn btn-primary copy-btn" type="button" data-copy-target="install-code" aria-label="Copy install code">
+              <svg class="copy-icon" aria-hidden="true"><use href="#i-copy"/></svg>
+              <svg class="ok-icon" aria-hidden="true"><use href="#i-check"/></svg>
+              <span class="copy-label">Copy code</span>
+            </button>
+          </div>
+          <p class="copy-status" role="status" aria-live="polite"></p>
+          <ol class="install-steps">
+            <li>In Anki, open <b>Tools <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Add-ons <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Get&nbsp;Add-ons…</b></li>
+            <li>Paste code <b class="mono" data-fill="ankiwebId"></b> and click <b>OK</b>.</li>
+            <li>Restart Anki. Then click <b>UWorld</b> in Anki’s top bar to open UBridge.</li>
+          </ol>
+          <div class="card-links">
+            <a data-href="ankiweb" href="#install" target="_blank" rel="noopener">View on AnkiWeb <svg aria-hidden="true"><use href="#i-external"/></svg></a>
+          </div>
+          <p class="small-note">Installed UBridge from a file before? Install it from AnkiWeb and the old copy steps aside. Your Question history comes along.</p>
+        </div>
+
+        <!-- The file (UB_CONFIG.downloadUrl) -->
+        <div class="state" data-when="dl-b">
+          <h4 class="state-label" data-when="anki-b" hidden>Or install it from the file</h4>
+          <ol class="install-steps install-steps--dl">
+            <li>
+              <span>Download the file.</span>
+              <span class="dl-row">
+                <a class="btn btn-primary" data-href="downloadUrl" href="downloads/ubridge.ankiaddon" download="ubridge.ankiaddon" data-dl><svg aria-hidden="true"><use href="#i-download"/></svg>Download for Anki</a>
+                <span class="dl-file">ubridge.ankiaddon · <span data-fill="downloadSize">118 KB</span></span>
+              </span>
+            </li>
+            <li>Double-click it with Anki open, or in Anki choose <b>Tools <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Add-ons <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Install&nbsp;from&nbsp;file…</b></li>
+            <li>Restart Anki. Then open UBridge from <b>UWorld</b> in Anki’s top bar, or the <b>UBridge</b> card on the home screen.</li>
+          </ol>
+          <p class="dl-status" role="status" aria-live="polite"></p>
+        </div>
+
+        <p class="small-note" data-when="dl-b|anki-b">First time? In UBridge’s <b>Settings</b>, pick your exam. Then add the UWorld tests you’ve already done, so new blocks skip them.</p>
+
+        <!-- Not on AnkiWeb yet -->
+        <p class="soon-line" data-when="dl-b anki-a"><span class="soon-pill">Coming soon to AnkiWeb</span> <span>Once it’s listed, you’ll also be able to install it with a code and get updates automatically.</span></p>
+        <div class="state" data-when="dl-a anki-a" hidden>
+          <span class="soon-pill">Coming soon to AnkiWeb</span>
+          <p class="body">When it’s on AnkiWeb, the install code will appear right here.</p>
+        </div>
+      </article>
+
+      <article class="install-card install-card--ext r r--lift" aria-labelledby="card-ext-title">
+        <div class="card-top">
+          <h3 id="card-ext-title">UBridge for Chrome</h3>
+          <p class="subtitle">Optional. One click from UWorld results to Anki.</p>
+        </div>
+
+        <div class="state" data-when="chrome-a">
+          <span class="soon-pill">Coming soon to the Chrome Web Store</span>
+          <p class="body">You don’t need it to use UBridge.</p>
+        </div>
+
+        <div class="state" data-when="chrome-b" hidden>
+          <a class="btn btn-primary" data-href="chromeStoreUrl" href="#install" target="_blank" rel="noopener">Add to Chrome <svg aria-hidden="true"><use href="#i-external"/></svg></a>
+          <ol class="install-steps">
+            <li>Add UBridge to Chrome from the Chrome Web Store.</li>
+            <li>In Anki, open <b>UBridge <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Settings…</b> and turn on <b>Connect the UBridge Chrome extension</b>.</li>
+            <li>With Anki open, click the UBridge icon in Chrome. It should say <b>Connected to Anki</b>.</li>
+          </ol>
+          <p class="small-note" data-when="anki-b">Not connecting? Update UBridge in Anki with <b>Tools <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Add-ons <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Check for Updates</b>.</p>
+          <p class="small-note" data-when="dl-b anki-a">Not connecting? Download UBridge again, install it the same way, then restart Anki.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="requirements r">
+      <h3 class="visually-hidden">What you need</h3>
+      <p><strong>You need</strong> Anki 2.1.50 or newer on Mac or Windows (Linux should work, not yet tested), a deck with UWorld ID tags like the AnKing decks (v11 and v12), and your own UWorld subscription.</p>
+      <p>The Chrome extension needs Chrome 102 or newer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= faq ======================= -->
+<section class="section section--alt faq" id="faq" aria-labelledby="faq-title">
+  <div class="container split">
+    <div class="split-head">
+      <h2 class="r" id="faq-title">Common questions</h2>
+    </div>
+    <div class="split-body faq-list">
+      <details class="r">
+        <summary>Is this made by UWorld or AnKing?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="faq-body"><p>No. UBridge is an independent tool made by a med student. It is not affiliated with or endorsed by UWorld, AnKing or Anki. It only uses the UWorld question IDs already in your deck’s tags.</p></div>
+      </details>
+      <details class="r">
+        <summary>Does it read UWorld questions?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="faq-body"><p>No. The add-on never reads, copies or stores UWorld questions, answers or explanations. It works only with question IDs, the numbers in your cards’ tags. The Chrome extension reads question IDs and whether each was right, wrong or marked, never question text. <a href="#privacy-extension">Privacy</a> lists everything it reads and keeps.</p></div>
+      </details>
+      <details class="r">
+        <summary>Which decks and exams work?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="faq-body"><p>Any deck whose notes are tagged with UWorld question IDs. AnKing’s UWorld tags for Step 1, Step 2 CK, Step 3, COMLEX and MCAT work with no setup, including the v11 and v12 Step decks. If your deck is tagged another way, you can set its tag format in <b>Settings <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Advanced options</b>. NBME practice exams and other question banks aren’t supported.</p></div>
+      </details>
+      <details class="r">
+        <summary>Will it repeat questions I’ve done?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="faq-body"><p>Not once UBridge knows you’ve done them. Blocks you copy with <span class="ui">Copy &amp; mark used</span> go into your Question history. So do tests you send from the Chrome extension and, unless you turn it off, questions you look up in Find Cards. New blocks skip all of them. Did some UWorld before installing? Add those tests once in Question history by pasting their question IDs, or click <span class="ui">Log on UBridge</span> on each test’s results page.</p></div>
+      </details>
+      <details class="r">
+        <summary>Does my Question history sync between computers?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="faq-body"><p>No. It’s saved on your computer, and it survives add-on updates and new AnKing deck versions. To move it, use <b>Settings <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Export…</b> on one computer and <b>Import…</b> on the other. Uninstalling the add-on deletes it, so export first. Changes to your cards, like unsuspending or tags, are normal Anki changes and sync as usual.</p></div>
+      </details>
+      <details class="r">
+        <summary>Will it change my cards?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="faq-body"><p>Only when you click. <span class="ui">Unsuspend in Browser</span> doesn’t change anything by itself: it shows just the suspended cards in Anki’s Browser, selected, so you can look them over and unsuspend them there (<kbd>Ctrl+J</kbd>, <kbd>⌘J</kbd> on a Mac). <span class="ui">Make a review deck</span>, <span class="ui">Add a tag</span> and <span class="ui">Unsuspend and study these first</span> change cards when you click them. They’re normal Anki changes, and <b>Edit <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Undo</b> reverts each one. It never grades or reviews cards for you.</p></div>
+      </details>
+      <details class="r">
+        <summary>What doesn’t it do?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="faq-body"><p>It’s UWorld only, with no AMBOSS or NBME. It runs in desktop Anki, not AnkiMobile, AnkiDroid or AnkiWeb, and it doesn’t show anything while you review cards. Your cards need UWorld question-ID tags, like the AnKing decks have. It can’t see your UWorld results by itself: you paste the IDs, or click the Chrome extension. And it’s new, at version 1.0, so there are no AnkiWeb ratings or reviews to go on yet.</p></div>
+      </details>
+      <details class="r">
+        <summary>Found a bug or have an idea?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="faq-body"><p>Please <a data-href="issuesUrl" href="https://github.com/mattccorrell-svg/anki-addons/issues">open an issue on GitHub</a>, where I can reply. Tell me your Anki version and what you clicked.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= creator ======================= -->
+<section class="section creator" id="creator" aria-labelledby="creator-title">
+  <div class="container creator-inner">
+    <div class="creator-head r">
+      <span class="avatar" aria-hidden="true">MC</span>
+      <h2 id="creator-title">Made by a med student, for med students</h2>
+    </div>
+    <p class="note r"><strong>Hi, I’m Matt.</strong> I love seeing a need and meeting a need. Going back and forth between UWorld and Anki took too many steps, so I built a bridge.</p>
+    <p class="faith r">I pray that everyone’s future will be blessed.</p>
+    <div class="byline r">
+      <p class="signature">Matthew Correll</p>
+      <p class="meta">Medical student · Boonshoft School of Medicine, Class&nbsp;of&nbsp;2029 · Dayton, Ohio</p>
+    </div>
+    <p class="support r">UBridge is free. If it’s helped you, you can chip in to keep it going. <a class="arrow-link" data-href="kofiUrl" href="https://ko-fi.com/mccorrell" target="_blank" rel="noopener">Support on Ko-fi<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================= footer ======================= -->
+<footer class="site-footer" id="footer">
+  <div class="container">
+    <div class="footer-top">
+      <a class="wordmark" href="#top" aria-label="UBridge, back to top">
+        <svg class="wm-mark" viewBox="0 0 1270 426" aria-hidden="true" focusable="false"><use href="#ub-mark"/></svg>
+        <span class="wm-text" aria-hidden="true">
+          <span class="wm-name"><span class="wm-u">U</span><span class="wm-b">Bridge</span></span>
+          <span class="wm-tag">Questions <span class="wm-arrows">⇄</span> Cards</span>
+        </span>
+      </a>
+      <nav aria-label="Footer">
+        <ul class="footer-links">
+          <li><a href="#how-it-works">How it works</a></li>
+          <li><a href="#install">Install</a></li>
+          <li><a href="#privacy">Privacy</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a data-href="issuesUrl" href="https://github.com/mattccorrell-svg/anki-addons/issues">Report a bug</a></li>
+          <li><a data-href="githubUrl" href="https://github.com/mattccorrell-svg/anki-addons">Matt’s add-ons on GitHub</a></li>
+          <li><a data-href="kofiUrl" href="https://ko-fi.com/mccorrell">Support on Ko-fi</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-legal">
+      <p class="disclaimer">UBridge is an independent tool. It is not affiliated with or endorsed by UWorld, AnKing, or Anki. UWorld is a trademark of its owner.</p>
+      <p class="small"><span>Formerly UWorld Bridge.</span> <span>Screenshots show demo data. Provided as is.</span> <span>© 2026 Matthew Correll</span></p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
