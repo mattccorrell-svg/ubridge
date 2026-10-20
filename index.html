@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>UBridge · UWorld ⇄ Anki add-on</title>
-<meta name="description" content="A free Anki add-on that turns your Anki cards into ready-to-paste blocks of UWorld QIDs, then takes the questions you missed back to the cards that teach them.">
+<meta name="description" content="A free Anki add-on that takes the UWorld questions you missed to the Anki cards that teach them, then turns your cards into ready-to-paste UWorld question blocks.">
 <meta name="author" content="Matthew Correll">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
@@ -22,7 +22,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://mattccorrell-svg.github.io/ubridge/">
 <meta property="og:title" content="UBridge: Unofficially the best UWorld ⇄ Anki add-on">
-<meta property="og:description" content="Free and independent, not affiliated with UWorld, AnKing or Anki. Turn Anki cards into UWorld question blocks, then find the cards behind your missed questions.">
+<meta property="og:description" content="Free and independent, not affiliated with UWorld, AnKing or Anki. Find the Anki cards behind your missed UWorld questions, then turn your cards into UWorld question blocks.">
 <meta property="og:image" content="https://mattccorrell-svg.github.io/ubridge/assets/brand/og-image.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
@@ -30,7 +30,7 @@
 <meta property="og:image:alt" content="UBridge logo with the line “Unofficially the best UWorld ⇄ Anki add-on” and a note: independent tool, not affiliated with UWorld, AnKing or Anki.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="UBridge: Unofficially the best UWorld ⇄ Anki add-on">
-<meta name="twitter:description" content="Free and independent, not affiliated with UWorld, AnKing or Anki. Turn Anki cards into UWorld question blocks, then find the cards behind your missed questions.">
+<meta name="twitter:description" content="Free and independent, not affiliated with UWorld, AnKing or Anki. Find the Anki cards behind your missed UWorld questions, then turn your cards into UWorld question blocks.">
 <meta name="twitter:image" content="https://mattccorrell-svg.github.io/ubridge/assets/brand/og-image.png">
 <meta name="twitter:image:alt" content="UBridge logo with the line “Unofficially the best UWorld ⇄ Anki add-on” and a note: independent tool, not affiliated with UWorld, AnKing or Anki.">
 
@@ -139,19 +139,13 @@
       <span class="h1-line"><span class="w h1-accent" style="--w:0">Unofficially<svg class="swoosh" viewBox="0 0 230 10" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M3 7.4C55 3.2 130 1.9 227 4.4"/></svg></span> <span class="w" style="--w:1">the</span> <span class="w" style="--w:2">best</span></span>
       <span class="h1-line"><span class="w" style="--w:3">UWorld</span> <span class="w h1-arrows" style="--w:4" aria-hidden="true"><svg viewBox="0 0 48 40"><path d="M5 13h36M32 5l9 8-9 8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M43 28H7m9-8-9 8 9 8" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".6"/></svg></span><span class="visually-hidden">and</span> <span class="w" style="--w:5">Anki</span> <span class="w" style="--w:6">add-on.</span></span>
     </h1>
-    <p class="indep-note"><strong>Unofficial, as in independent:</strong> not affiliated with or endorsed by UWorld, AnKing or Anki. <a class="indep-link" href="#compare">Why “the best”?<span aria-hidden="true"> →</span></a></p>
-    <p class="hero-lead">Turn your Anki cards into ready-to-paste UWorld question blocks, then find the cards behind your missed questions.</p>
+    <p class="hero-lead"><span class="lead-1"><span class="lead-q">Missed questions in UWorld?</span> <span class="lead-a">Find the Anki cards that teach them.</span></span> <span class="lead-2">Then turn your cards <span class="nobr">into UWorld blocks.</span></span></p>
 
     <!-- With the file to download (UB_CONFIG.downloadUrl) -->
     <div class="hero-ctas" data-when="dl-b">
       <a class="btn btn-primary btn-lg btn-cta" data-href="downloadUrl" href="downloads/ubridge.ankiaddon" download="ubridge.ankiaddon" data-dl><svg aria-hidden="true"><use href="#i-download"/></svg>Download for Anki</a>
       <a class="arrow-link hero-more" href="#how-it-works">See how it works<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
-    <ul class="facts dl-facts" data-when="dl-b" aria-label="About the download">
-      <li>Free</li>
-      <li>Version <span data-fill="downloadVersion">1.0</span></li>
-      <li>Anki 2.1.50+ for Mac and Windows</li>
-    </ul>
 
     <!-- Without a file to download: AnkiWeb only -->
     <div class="hero-ctas" data-when="dl-a anki-a" hidden>
@@ -162,10 +156,11 @@
       <a class="btn btn-primary btn-lg btn-cta" href="#install">Get the install code<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       <a class="arrow-link hero-more" href="#how-it-works">See how it works<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
-    <ul class="facts" data-when="dl-a" hidden>
+    <!-- The independence note (the "Unofficially" in the headline) and the facts, as one quiet line -->
+    <ul class="facts" aria-label="About UBridge">
       <li>Free</li>
-      <li>No account</li>
-      <li>Anki 2.1.50 or newer on Mac and Windows</li>
+      <li>Anki 2.1.50+ on Mac and Windows</li>
+      <li class="fact-indep"><strong>Independent:</strong> not affiliated with UWorld, AnKing or&nbsp;Anki</li>
     </ul>
   </div>
 
@@ -173,23 +168,28 @@
     <div class="hero-shot">
       <!-- One quiet touch of the logo's bridge: a thin arch over the window -->
       <svg class="hero-arc" viewBox="0 0 1000 100" aria-hidden="true" focusable="false"><path pathLength="1" d="M40 96A1500 1500 0 0 1 960 96"/></svg>
+      <!-- Phones get just the right-hand panel (74 cards found, topics), big enough to read at a glance -->
       <figure class="win">
         <picture class="only-light">
-          <source type="image/webp" srcset="assets/screens/find-questions-light@1200.webp 1200w, assets/screens/find-questions-light@2x.webp 2400w"
+          <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-cards-panel-light@2x.webp 1508w" sizes="92vw" width="754" height="528">
+          <source media="(max-width: 599px)" srcset="assets/screens/find-cards-panel-light@2x.png 1508w" sizes="92vw" width="754" height="528">
+          <source type="image/webp" srcset="assets/screens/find-cards-light@1200.webp 1200w, assets/screens/find-cards-light@2x.webp 2400w"
                   sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px">
-          <img src="assets/screens/find-questions-light@2x.png" width="1200" height="895" loading="lazy" fetchpriority="high" decoding="async"
-               alt="UBridge’s Find Questions tab. On the left, the B&amp;B Cardio topic is ticked and the high-yield filter is on. On the right, numbered blocks of UWorld question IDs, each with Copy and Copy &amp; mark used buttons. Block 1 is marked Used and block 2 is Up next.">
+          <img src="assets/screens/find-cards-light@2x.png" width="1200" height="906" loading="lazy" fetchpriority="high" decoding="async"
+               alt="UBridge’s Find Cards tab: 74 Anki cards found from 12 pasted UWorld question IDs, with a Show in Browser button and the topics those cards cover.">
         </picture>
         <picture class="only-dark">
-          <source type="image/webp" srcset="assets/screens/find-questions-dark@1200.webp 1200w, assets/screens/find-questions-dark@2x.webp 2400w"
+          <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-cards-panel-dark@2x.webp 1508w" sizes="92vw" width="754" height="528">
+          <source media="(max-width: 599px)" srcset="assets/screens/find-cards-panel-dark@2x.png 1508w" sizes="92vw" width="754" height="528">
+          <source type="image/webp" srcset="assets/screens/find-cards-dark@1200.webp 1200w, assets/screens/find-cards-dark@2x.webp 2400w"
                   sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px">
-          <img src="assets/screens/find-questions-dark@2x.png" width="1200" height="895" loading="lazy" fetchpriority="high" decoding="async"
-               alt="UBridge’s Find Questions tab. On the left, the B&amp;B Cardio topic is ticked and the high-yield filter is on. On the right, numbered blocks of UWorld question IDs, each with Copy and Copy &amp; mark used buttons. Block 1 is marked Used and block 2 is Up next.">
+          <img src="assets/screens/find-cards-dark@2x.png" width="1200" height="906" loading="lazy" fetchpriority="high" decoding="async"
+               alt="UBridge’s Find Cards tab: 74 Anki cards found from 12 pasted UWorld question IDs, with a Show in Browser button and the topics those cards cover.">
         </picture>
       </figure>
       <!-- Both copies are lazy so the other theme's never downloads; the one on show loads right away -->
       <script>document.querySelectorAll(".hero-shot img").forEach(function (i) { if (i.offsetParent) i.loading = "eager"; });</script>
-      <p class="hero-caption"><span class="ui">Find Questions</span> creates blocks ready to paste into UWorld. Demo data.</p>
+      <p class="hero-caption"><span class="ui">Find Cards:</span> paste the IDs you missed, see the cards that teach them. Demo data.</p>
     </div>
   </div>
 </section>
@@ -199,22 +199,22 @@
   <span class="anchor-alias" id="loop" aria-hidden="true"></span><span class="anchor-alias" id="two-ways" aria-hidden="true"></span>
   <div class="container" data-stagger="110">
     <div class="section-head">
-      <h2 class="r" id="how-title">From Anki to UWorld and back</h2>
+      <h2 class="r" id="how-title">From UWorld to Anki and back</h2>
     </div>
 
     <div class="steps">
       <div class="step-group">
-        <h3 class="group-label r" id="fq-title"><span class="ui">Find Questions</span><span class="sep" aria-hidden="true">·</span><span class="visually-hidden">: </span><span class="dir">Anki <span aria-hidden="true">→</span><span class="visually-hidden">to</span> UWorld</span></h3>
-        <ol class="step-list" aria-labelledby="fq-title">
-          <li class="step r"><span class="step-num" aria-hidden="true">1</span><h4>Choose what to practice</h4><p>Select topics or search in Anki’s Browser.</p></li>
-          <li class="step r"><span class="step-num" aria-hidden="true">2</span><h4>Copy a block to UWorld</h4><p>Click <span class="ui">Copy &amp; mark used</span>, then paste into a Custom test.</p></li>
+        <h3 class="group-label r" id="fc-title"><span class="ui">Find Cards</span><span class="sep" aria-hidden="true">·</span><span class="visually-hidden">: </span><span class="dir">UWorld&nbsp;<span aria-hidden="true">→</span><span class="visually-hidden">to</span> Anki</span></h3>
+        <ol class="step-list" aria-labelledby="fc-title">
+          <li class="step r"><span class="step-num" aria-hidden="true">1</span><h4>Bring back your missed questions</h4><p>Paste the question IDs you missed, or send them from Chrome in one click<span data-when="chrome-a"> (coming soon)</span>.</p></li>
+          <li class="step r"><span class="step-num" aria-hidden="true">2</span><h4>Review the cards that cover them</h4><p>Open them in the Browser, unsuspend them or create a review deck.</p></li>
         </ol>
       </div>
       <div class="step-group">
-        <h3 class="group-label r" id="fc-title"><span class="ui">Find Cards</span><span class="sep" aria-hidden="true">·</span><span class="visually-hidden">: </span><span class="dir">UWorld <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Anki</span></h3>
-        <ol class="step-list" start="3" aria-labelledby="fc-title">
-          <li class="step r"><span class="step-num" aria-hidden="true">3</span><h4>Bring back your missed questions</h4><p>Paste missed question IDs or send them from Chrome in one click<span data-when="chrome-a"> (coming soon)</span>.</p></li>
-          <li class="step r"><span class="step-num" aria-hidden="true">4</span><h4>Review the cards that cover them</h4><p>Open them in the Browser, unsuspend them or create a review deck.</p></li>
+        <h3 class="group-label r" id="fq-title"><span class="ui">Find Questions</span><span class="sep" aria-hidden="true">·</span><span class="visually-hidden">: </span><span class="dir">Anki&nbsp;<span aria-hidden="true">→</span><span class="visually-hidden">to</span> UWorld</span></h3>
+        <ol class="step-list" start="3" aria-labelledby="fq-title">
+          <li class="step r"><span class="step-num" aria-hidden="true">3</span><h4>Choose what to practice</h4><p>Select topics or search in Anki’s Browser.</p></li>
+          <li class="step r"><span class="step-num" aria-hidden="true">4</span><h4>Copy a block to UWorld</h4><p>Click <span class="ui">Copy &amp; mark used</span>, then paste into a Custom test.</p></li>
         </ol>
       </div>
     </div>
@@ -233,14 +233,14 @@
       <li class="why-item r">
         <svg class="f-icon" aria-hidden="true"><use href="#i-both"/></svg>
         <h3>Works both ways</h3>
-        <p>Go from Anki <span aria-hidden="true">→</span><span class="visually-hidden">to</span> UWorld and back, all in one window.</p>
+        <p>Go from UWorld&nbsp;<span aria-hidden="true">→</span><span class="visually-hidden">to</span> Anki and back, all in one window.</p>
         <p class="vs">Only 3 of 25 surveyed add-ons do.</p>
       </li>
       <li class="why-item r">
         <svg class="f-icon" aria-hidden="true"><use href="#i-blocks"/></svg>
         <h3>Ready-to-paste blocks</h3>
         <p>Blocks of 40 by default (adjustable), ordered <span class="ui">Best first</span>.</p>
-        <p class="vs">Most Anki <span aria-hidden="true">→</span><span class="visually-hidden">to</span> UWorld tools copy one long list.</p>
+        <p class="vs">Most Anki&nbsp;<span aria-hidden="true">→</span><span class="visually-hidden">to</span> UWorld tools copy one long list.</p>
       </li>
       <li class="why-item r">
         <svg class="f-icon" aria-hidden="true"><use href="#i-history"/></svg>
@@ -257,7 +257,7 @@
     <div class="why-notes r">
       <p>Based on a survey of 25 UWorld-related add-ons on AnkiWeb in October 2026.</p>
       <p class="soon-note" data-when="chrome-a">Coming soon to the Chrome Web Store: an optional extension to send missed question IDs from UWorld results to Anki in one click.</p>
-      <p class="soon-note soon-note--live" data-when="chrome-b" hidden>Also free: the optional Chrome extension sends missed question IDs from UWorld results to Anki in one click. <a data-href="chromeStoreUrl" href="#install" target="_blank" rel="noopener">Add to Chrome<span class="visually-hidden"> (opens the Chrome Web Store)</span></a></p>
+      <p class="soon-note soon-note--live" data-when="chrome-b" hidden><span>Also free: the optional Chrome extension sends missed question IDs from UWorld results to Anki in one click. <a data-href="chromeStoreUrl" href="#install" target="_blank" rel="noopener">Add to Chrome<span class="visually-hidden"> (opens the Chrome Web Store)</span></a></span></p>
     </div>
   </div>
 </section>
@@ -294,7 +294,14 @@
     <div class="split-head">
       <h2 class="r" id="install-title">Get UBridge</h2>
       <p class="lead r">Free. No sign-up required.</p>
-      <p class="requirements r"><strong>Requires</strong> Anki 2.1.50+ on Mac or Windows (Linux should work, not yet tested), a deck with UWorld ID tags such as AnKing v11 or v12, and your own UWorld subscription.</p>
+      <div class="requirements r">
+        <p><strong>Requires</strong></p>
+        <ul>
+          <li>Anki 2.1.50+ on Mac or Windows (Linux should work, not yet&nbsp;tested)</li>
+          <li>A deck with UWorld ID tags, such as AnKing v11&nbsp;or&nbsp;v12</li>
+          <li>Your own UWorld subscription</li>
+        </ul>
+      </div>
     </div>
 
     <div class="split-body">
@@ -312,7 +319,7 @@
           </div>
           <p class="copy-status" role="status" aria-live="polite"></p>
           <ol class="install-steps">
-            <li>In Anki, open <b>Tools <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Add-ons <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Get&nbsp;Add-ons…</b></li>
+            <li>In Anki, open <b>Tools&nbsp;<span aria-hidden="true">→</span><span class="visually-hidden">to</span> <span class="nobr">Add-ons&nbsp;<span aria-hidden="true">→</span></span><span class="visually-hidden">to</span> Get&nbsp;Add-ons…</b></li>
             <li>Paste code <b class="mono" data-fill="ankiwebId"></b> and click <b>OK</b>.</li>
             <li>Restart Anki. Open UBridge from the <b>UWorld</b> button in Anki’s top bar or the <b>UBridge</b> card on the home screen.</li>
           </ol>
@@ -330,10 +337,10 @@
               <span>Download the file.</span>
               <span class="dl-row">
                 <a class="btn btn-primary" data-href="downloadUrl" href="downloads/ubridge.ankiaddon" download="ubridge.ankiaddon" data-dl><svg aria-hidden="true"><use href="#i-download"/></svg>Download for Anki</a>
-                <span class="dl-file">ubridge.ankiaddon · <span data-fill="downloadSize">124 KB</span></span>
+                <span class="dl-file">ubridge.ankiaddon · v<span data-fill="downloadVersion">1.0</span> · <span data-fill="downloadSize">124 KB</span></span>
               </span>
             </li>
-            <li>With Anki open, double-click the file or select <b>Tools <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Add-ons <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Install&nbsp;from&nbsp;file…</b> in Anki.</li>
+            <li>With Anki open, double-click the file or select <b>Tools&nbsp;<span aria-hidden="true">→</span><span class="visually-hidden">to</span> <span class="nobr">Add-ons&nbsp;<span aria-hidden="true">→</span></span><span class="visually-hidden">to</span> Install&nbsp;from&nbsp;file…</b></li>
             <li>Restart Anki. Open UBridge from the <b>UWorld</b> button in Anki’s top bar or the <b>UBridge</b> card on the home screen.</li>
           </ol>
           <p class="dl-status" role="status" aria-live="polite"></p>
@@ -351,12 +358,12 @@
         <h3>Optional: UBridge for Chrome</h3>
         <ol class="install-steps">
           <li>Add UBridge to Chrome from the Chrome Web Store.</li>
-          <li>In Anki, open <b>UBridge <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Settings…</b> and turn on <b>Connect the UBridge Chrome extension</b>.</li>
+          <li>In Anki, open <b>UBridge&nbsp;<span aria-hidden="true">→</span><span class="visually-hidden">to</span> Settings…</b> and turn on <b>Connect the UBridge Chrome extension</b>.</li>
           <li>With Anki open, click the UBridge icon in Chrome. It should say <b>Connected to Anki</b>.</li>
         </ol>
         <a class="btn btn-secondary" data-href="chromeStoreUrl" href="#install" target="_blank" rel="noopener">Add to Chrome <svg aria-hidden="true"><use href="#i-external"/></svg></a>
         <p class="small-note">Free and optional. Works with Chrome 102 or newer.</p>
-        <p class="small-note" data-when="anki-b">Not connecting? Update UBridge in Anki with <b>Tools <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Add-ons <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Check for Updates</b>.</p>
+        <p class="small-note" data-when="anki-b">Not connecting? Update UBridge in Anki with <b>Tools&nbsp;<span aria-hidden="true">→</span><span class="visually-hidden">to</span> <span class="nobr">Add-ons&nbsp;<span aria-hidden="true">→</span></span><span class="visually-hidden">to</span> Check for Updates</b>.</p>
         <p class="small-note" data-when="dl-b anki-a">Not connecting? Download UBridge again, install it the same way, then restart Anki.</p>
       </div>
     </div>
@@ -383,7 +390,7 @@
       </details>
       <details class="r">
         <summary>Which decks and exams are supported?<span class="pm" aria-hidden="true"></span></summary>
-        <div class="faq-body"><p>Any deck with notes tagged by UWorld question ID. AnKing’s UWorld tags for Step 1, Step 2 CK, Step 3, COMLEX and MCAT work without setup, including v11 and v12 Step decks. Using different tags? Configure them in <b>Settings <span aria-hidden="true">→</span><span class="visually-hidden">to</span> Advanced options</b>. UWorld only; no AMBOSS or NBME support. Runs in desktop Anki, not AnkiMobile, AnkiDroid or AnkiWeb. Nothing appears during card reviews.</p></div>
+        <div class="faq-body"><p>Any deck with notes tagged by UWorld question ID. AnKing’s UWorld tags for Step 1, Step 2 CK, Step 3, COMLEX and MCAT work without setup, including v11 and v12 Step decks. Using different tags? Configure them in <b>Settings&nbsp;<span aria-hidden="true">→</span><span class="visually-hidden">to</span> Advanced options</b>. UWorld only; no AMBOSS or NBME support. Runs in desktop Anki, not AnkiMobile, AnkiDroid or AnkiWeb. Nothing appears during card reviews.</p></div>
       </details>
       <details class="r">
         <summary>Found a bug or have a suggestion?<span class="pm" aria-hidden="true"></span></summary>

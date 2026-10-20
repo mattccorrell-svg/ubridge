@@ -180,10 +180,14 @@ const UB_CONFIG = {
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") { set(false); btn.focus(); }
     });
-    document.addEventListener("click", (e) => {
+    // pointerdown, not click: iOS Safari sends no click for a tap on plain text or background
+    document.addEventListener("pointerdown", (e) => {
       if (btn.getAttribute("aria-expanded") === "true" && !header.contains(e.target)) set(false);
     });
-    window.matchMedia("(min-width: 920px)").addEventListener("change", (m) => { if (m.matches) set(false); });
+    const wide = window.matchMedia("(min-width: 920px)");
+    const onWide = (m) => { if (m.matches) set(false); };
+    if (wide.addEventListener) wide.addEventListener("change", onWide);
+    else if (wide.addListener) wide.addListener(onWide);         // Safari before 14
   }
 
   /* ---------- Nav: an underline that slides to the hovered (or focused) link ---------- */
@@ -363,25 +367,66 @@ const UB_CONFIG = {
 
   /* ---------- Download buttons: the file downloads, then the install steps come into view ----------
      Clicked anywhere above the install section, the page glides down to it, step 1 ticks off and
-     a short line points to step 2. The download itself is the link's own (href + download). */
+     a short line points to step 2. The download itself is the link's own (href + download).
+     On a phone or tablet (touch only, not Windows) Anki can't install the file, so step 1 doesn't
+     tick off and the line says to open the page on a computer instead. */
   function setupDownload() {
     const install = document.getElementById("install");
     const card = document.querySelector(".install-card--anki");
     const status = card ? card.querySelector(".dl-status") : null;
+    const onPhone = () =>
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches && !/Windows/.test(navigator.userAgent);
     document.querySelectorAll("[data-dl]").forEach((a) => {
       a.addEventListener("click", () => {
-        if (card) card.classList.add("dl-started");
-        if (status) status.textContent = "Your download should start now. Next: step 2.";
-        if (!install || a.closest("#install")) return;
+        const phone = onPhone();
+        if (card && !phone) card.classList.add("dl-started");
+        if (status) {
+          status.classList.toggle("dl-status--phone", phone);
+          status.textContent = phone
+            ? "UBridge installs in Anki on a Mac or Windows computer. Open this page there to install it."
+            : "Your download should start now. Next: step 2.";
+        }
+        const inside = !!a.closest("#install");
+        if (!install || (inside && !phone)) return;
         setTimeout(() => {
           showAllReveals();
-          install.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "start" });
+          const behavior = reduceMotion.matches ? "auto" : "smooth";
+          // on a phone the line about using a computer is what matters, so bring that into view
+          if (phone && status) status.scrollIntoView({ behavior, block: inside ? "nearest" : "center" });
+          else install.scrollIntoView({ behavior, block: "start" });
         }, 250);
       });
     });
   }
 
+  /* ---------- A fresh visit opens at the top ----------
+     Phones often reopen a page partway down (a reload, a tab coming back, a search result's
+     text highlight, an in-app browser), and with the header pinned a small leftover offset
+     hides the headline. Until the visitor touches, scrolls or types, keep the page at the top.
+     A link to a section (#install) still lands there. */
+  function keepTopOnArrival() {
+    if (location.hash.length > 1) return;
+    try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) { /* sandboxed */ }
+    const events = ["touchstart", "pointerdown", "wheel", "keydown"];
+    let touched = false;
+    const stop = () => {
+      touched = true;
+      events.forEach((t) => window.removeEventListener(t, stop, true));
+    };
+    events.forEach((t) => window.addEventListener(t, stop, { capture: true, passive: true }));
+    const toTop = () => {
+      if (!touched && location.hash.length < 2 && window.scrollY > 0) window.scrollTo(0, 0);
+    };
+    toTop();
+    window.addEventListener("load", () => { toTop(); setTimeout(toTop, 150); });
+    setTimeout(toTop, 400);
+    setTimeout(toTop, 1200);
+    setTimeout(stop, 3000);                     // after that, the page is the visitor's
+    window.addEventListener("pageshow", (e) => { if (!e.persisted) toTop(); });
+  }
+
   /* ---------- Go ---------- */
+  keepTopOnArrival();
   applyConfig();
   setupCopy();
   setupDownload();
