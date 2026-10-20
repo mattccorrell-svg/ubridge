@@ -1,7 +1,7 @@
 /* ==========================================================================
    UBridge
    Calm by design: whitespace separates things, one blue accent, few frames
-   (the install cards, the comparison table's column, the screenshots).
+   (the hero window and the install card).
    The page moves gently: the hero plays once on load, and sections fade up
    as they scroll in (see "Motion" at the end).
    ========================================================================== */
@@ -10,21 +10,19 @@
   /* ---- Page (light) ---- */
   --paper:   #ffffff;
   --paper-2: #f5f7fa;   /* the two or three alternate sections */
-  --surface: #ffffff;   /* install cards, screenshot frames */
+  --surface: #ffffff;   /* the install card, the hero window */
   --ink:     #0a1b2d;   /* the logo's navy, used as text */
   --muted:   #45526a;   /* secondary text */
   --soft:    #5a6780;   /* captions, notes */
   --accent:  #0b63d6;   /* links, icons */
   --line:    rgba(10, 27, 45, .1);
   --line-strong: rgba(10, 27, 45, .17);
-  --tint:    rgba(11, 99, 214, .065);   /* the UBridge column */
 
   --btn: #0b63d6;                  /* button fill, white text 5.6:1 */
   --btn-hover: #0956bb;
   --btn2-bg: #ffffff;
   --btn2-line: rgba(10, 27, 45, .18);
   --ok: #0f7543;                   /* "done" text */
-  --ok-fill: #12a05c;              /* check graphics */
   --ok-btn: #0f7543;               /* green button fill, white text 5.8:1 */
   --ok-soft: #e1f4ea;
   --amber-ink: #6e4a00;
@@ -66,8 +64,8 @@
   --gutter: clamp(16px, 5vw, 48px);
   --max: 1200px;
   --header-h: 64px;
-  --section-y: clamp(56px, 6.5vw, 88px);
-  --head-gap: clamp(32px, 4vw, 48px);
+  --section-y: clamp(52px, 5.2vw, 72px);
+  --head-gap: clamp(28px, 3.2vw, 40px);
   --ease: cubic-bezier(.2, .7, .2, 1);
 }
 
@@ -83,13 +81,11 @@
     --accent:  #6cb0ff;
     --line:    rgba(200, 218, 245, .1);
     --line-strong: rgba(200, 218, 245, .17);
-    --tint:    rgba(108, 176, 255, .085);
     --btn: #1a6ae0;
     --btn-hover: #1560cc;
     --btn2-bg: #101e30;
     --btn2-line: rgba(200, 218, 245, .22);
     --ok: #43d494;
-    --ok-fill: #1f9d62;
     --ok-btn: #12804b;
     --ok-soft: #0f2f25;
     --amber-ink: #f6cd6e;
@@ -124,13 +120,11 @@
     --accent:  #6cb0ff;
     --line:    rgba(200, 218, 245, .1);
     --line-strong: rgba(200, 218, 245, .17);
-    --tint:    rgba(108, 176, 255, .085);
     --btn: #1a6ae0;
     --btn-hover: #1560cc;
     --btn2-bg: #101e30;
     --btn2-line: rgba(200, 218, 245, .22);
     --ok: #43d494;
-    --ok-fill: #1f9d62;
     --ok-btn: #12804b;
     --ok-soft: #0f2f25;
     --amber-ink: #f6cd6e;
@@ -334,14 +328,6 @@ kbd {
 }
 .badge--live { color: var(--ok); border: 1px solid color-mix(in srgb, var(--ok) 40%, transparent); background: var(--ok-soft); }
 .badge--live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ok); flex: none; }
-
-/* Screenshot frame */
-.frame {
-  border-radius: var(--r-3);
-  overflow: hidden;
-  background: var(--surface);
-  box-shadow: 0 0 0 1px var(--frame-line), var(--frame-shadow);
-}
 
 /* ==========================================================================
    Header (follows the theme, blurred)
@@ -578,7 +564,7 @@ html:not(.js) .theme-toggle { display: none; }          /* it needs JS to work *
 .section-head { max-width: 800px; margin-bottom: var(--head-gap); }
 .section-head .lead { margin-top: 14px; }
 
-/* Heading on the left, content on the right (privacy, FAQ) */
+/* Heading on the left, content on the right (privacy, install, FAQ) */
 .split {
   display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   gap: 28px clamp(32px, 6vw, 96px); align-items: start;
@@ -619,10 +605,6 @@ html:not(.js) .theme-toggle { display: none; }          /* it needs JS to work *
   transform-origin: 0 50%;
 }
 .step-group:last-child .step:last-child::before { display: none; }
-.how-shot { max-width: 620px; margin: clamp(48px, 6vw, 72px) auto 0; }
-.crop { position: relative; aspect-ratio: 1438 / 652; }   /* Find Cards' right-hand panel, inside its border, from its title to "Marked as done" */
-.crop img { position: absolute; max-width: none; width: 166.898%; left: -63.978%; top: -28.221%; }
-
 @media (max-width: 999px) {
   .steps { grid-template-columns: 1fr; row-gap: 40px; }
   .step:last-child::before { display: none; }
@@ -635,92 +617,40 @@ html:not(.js) .theme-toggle { display: none; }          /* it needs JS to work *
   .step::before { top: 40px; left: 15.5px; width: 1px; height: calc(100% - 22px); transform-origin: 50% 0; }
 }
 
-/* ---- Extension ---- */
-.ext-grid {
-  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: 44px clamp(32px, 6vw, 96px); align-items: center;
-}
-.ext-copy .lead { margin-top: 14px; max-width: 34em; }
-.bullets { list-style: none; margin-top: 24px; display: grid; gap: 10px; }
-.bullets li { position: relative; padding-left: 22px; line-height: 1.5; }
-.bullets li::before { content: ""; position: absolute; left: 3px; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-.status-row { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
-.status-row p { color: var(--soft); font-size: var(--fs-small); }
-.more-link { margin-top: 18px; font-size: var(--fs-small); }
-.ext-shot { justify-self: center; width: min(100%, 320px); }
-@media (max-width: 699px) {
-  .ext-grid { grid-template-columns: 1fr; }
-  .ext-shot { justify-self: start; width: min(100%, 280px); }
-}
-
-/* ---- Features: a plain grid ---- */
-.feature-grid {
+/* ---- Why the best: four points, each with its comparison under a hairline ---- */
+.why-grid {
   list-style: none;
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 44px clamp(24px, 3vw, 40px);
+  gap: 40px clamp(24px, 3vw, 40px);
 }
 .f-icon { display: block; width: 24px; height: 24px; color: var(--accent); margin-bottom: 16px; }
-.feature p { margin-top: 6px; color: var(--muted); }
-@media (max-width: 999px) { .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.why-item p { margin-top: 6px; color: var(--muted); }
+.why-item .vs {
+  margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-small); line-height: 1.5; color: var(--soft);
+}
+.why-notes { margin-top: clamp(32px, 4vw, 44px); display: grid; gap: 6px; font-size: var(--fs-small); color: var(--soft); }
+.soon-note { display: flex; align-items: baseline; gap: 10px; }
+.soon-note::before {            /* the coming-soon pill's amber dot, on its own */
+  content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--amber-dot); translate: 0 -1px;
+}
+.soon-note--live::before { background: var(--ok); }
+.soon-note a { font-weight: 600; white-space: nowrap; }
+@media (max-width: 999px) { .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 559px) {
-  .feature-grid { grid-template-columns: 1fr; gap: 26px; }
-  .feature { display: grid; grid-template-columns: 24px minmax(0, 1fr); column-gap: 16px; }
-  .f-icon { grid-row: span 2; margin: 2px 0 0; }
-  .feature p { margin-top: 4px; }
-}
-
-/* ---- Compare: row dividers, the UBridge column tinted ---- */
-.table-wrap { position: relative; }
-.ub-col {                    /* the UBridge column's tint, drawn behind the table */
-  position: absolute; z-index: 0; top: 0; bottom: 0; left: 38%; width: 28%;
-  background: var(--tint);
-  border-radius: var(--r-3);
-  transform-origin: 50% 0;
-  pointer-events: none;
-}
-.compare-table { position: relative; z-index: 1; width: 100%; border-collapse: collapse; table-layout: fixed; }
-.compare-table thead th:nth-child(1) { width: 38%; }
-.compare-table thead th:nth-child(2) { width: 28%; }
-.compare-table thead th:nth-child(3) { width: 34%; }
-.compare-table th, .compare-table td { text-align: left; vertical-align: top; padding: 15px 22px; border-bottom: 1px solid var(--line); text-wrap: pretty; }
-.compare-table tbody tr:last-child > * { border-bottom: 0; }
-.compare-table thead th { font-size: var(--fs-small); font-weight: 600; color: var(--soft); padding-block: 20px 14px; vertical-align: bottom; border-bottom-color: var(--line-strong); }
-.compare-table thead th.col-ub { font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
-.compare-table tbody th { font-weight: 600; }
-.compare-table td.col-ub { font-weight: 600; color: var(--ink); }
-.compare-table .col-other { color: var(--muted); }
-.cell { display: flex; gap: 10px; align-items: flex-start; }
-.cell svg { flex: none; width: 16px; height: 16px; margin-top: 4px; }
-.cell .yes { color: var(--ok-fill); }
-.cell .no { color: var(--soft); }
-.cell .soon { color: var(--amber-dot); }
-.soon-inline { color: var(--amber-ink); }
-.source-note { margin-top: 18px; font-size: var(--fs-small); color: var(--soft); }
-@media (max-width: 999px) {
-  .compare-table th, .compare-table td { padding-inline: 14px; }
-}
-
-@media (max-width: 719px) {
-  /* Phones: each row is the question, then UBridge and the others side by side, under one header */
-  .ub-col { display: none; }
-  .compare-table { table-layout: auto; }
-  .compare-table, .compare-table thead, .compare-table tbody, .compare-table tr, .compare-table th, .compare-table td { display: block; width: auto !important; }
-  .compare-table tr { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-block: 16px; border-bottom: 1px solid var(--line); }
-  .compare-table thead tr { padding-block: 0 10px; border-bottom-color: var(--line-strong); }
-  .compare-table thead th { padding: 0 10px; border: 0; }
-  .compare-table thead th:first-child { display: none; }
-  .compare-table thead th.col-ub { font-size: var(--fs-body); }
-  .compare-table tbody tr:last-child { border-bottom: 0; }
-  .compare-table tbody th { grid-column: 1 / -1; padding: 0; border: 0; line-height: 1.4; }
-  .compare-table td { padding: 8px 10px; border: 0; border-radius: var(--r-2); font-size: var(--fs-small); line-height: 1.4; }
-  .compare-table td.col-ub { background: var(--tint); }
-  .compare-table .cell { gap: 7px; }
-  .compare-table .cell svg { width: 15px; height: 15px; margin-top: 2px; }
+  .why-grid { grid-template-columns: 1fr; gap: 26px; }
+  .why-item { display: grid; grid-template-columns: 24px minmax(0, 1fr); column-gap: 16px; }
+  .why-item > :not(.f-icon) { grid-column: 2; }
+  .f-icon { grid-row: 1 / span 3; margin: 2px 0 0; }
+  .why-item p { margin-top: 4px; }
+  .why-item .vs { margin-top: 10px; padding-top: 9px; }
 }
 
 /* ---- Privacy ---- */
 .promises { list-style: none; }
-.promises li { padding: 16px 0; border-bottom: 1px solid var(--line); color: var(--muted); }
+.promises li { padding: 16px 0; border-bottom: 1px solid var(--line); color: var(--muted); text-wrap: pretty; }
 .promises li:first-child { padding-top: 4px; }
 .promises strong { color: var(--ink); }
 
@@ -744,20 +674,24 @@ html:not(.js) .theme-toggle { display: none; }          /* it needs JS to work *
 summary:hover .pm, details[open] > summary .pm { color: var(--accent); }
 details[open] > summary .pm::after { transform: translate(-50%, -50%) rotate(0deg); }
 
-/* ---- Install: the add-on card leads (download + 3 steps); Chrome sits beside it, quieter ---- */
-.install-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px; align-items: start; }
+/* ---- Install: heading and requirements on the left, the add-on card on the right ---- */
+.install .split { grid-template-areas: "head body" "soon body"; grid-template-rows: auto 1fr; }
+.install .split-head { grid-area: head; }
+.install .split-body { grid-area: body; }
+.install .split-head .lead { margin-top: 14px; }
+@media (max-width: 899px) {
+  .install .split { grid-template-areas: "head" "body" "soon"; grid-template-rows: none; }
+}
+.requirements { margin-top: 18px; max-width: 30rem; font-size: var(--fs-small); color: var(--soft); }
+.requirements strong { color: var(--muted); font-weight: 700; }
 .install-card {
   display: flex; flex-direction: column; gap: 20px;
   padding: clamp(24px, 3vw, 36px);
   border-radius: var(--r-card);
-}
-.install-card--anki {
   background: var(--surface);
   border: 1px solid var(--line-strong);
   box-shadow: var(--frame-shadow);
 }
-.install-card--ext { background: var(--paper-2); }
-.install-card .subtitle { color: var(--muted); margin-top: 2px; }
 .install-card .body { color: var(--muted); }
 .install-card .state { display: grid; gap: 14px; justify-items: start; align-content: start; }
 .install-card .state .code-box { justify-self: stretch; }
@@ -783,7 +717,7 @@ details[open] > summary .pm::after { transform: translate(-50%, -50%) rotate(0de
 }
 .dl-status { font-size: var(--fs-small); font-weight: 600; color: var(--ok); }
 .dl-status:empty { position: absolute; }   /* a live region that takes no space until it speaks */
-.soon-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding-top: 20px; border-top: 1px solid var(--line); font-size: var(--fs-small); color: var(--soft); }
+.soon-line { grid-area: soon; align-self: start; max-width: 30rem; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: var(--fs-small); color: var(--soft); }
 .code-box {
   display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
   padding: 10px 10px 10px 18px;
@@ -807,18 +741,21 @@ details[open] > summary .pm::after { transform: translate(-50%, -50%) rotate(0de
 .card-links svg { width: 16px; height: 16px; }
 .small-note { font-size: var(--fs-small); color: var(--soft); }
 .small-note b { color: var(--muted); }
-@media (max-width: 899px) {
-  .install-grid { grid-template-columns: 1fr; gap: 16px; }
+/* Shown only once the extension is on the Chrome Web Store */
+.ext-install {
+  margin-top: 16px;
+  display: grid; gap: 14px; justify-items: start;
+  padding: clamp(22px, 2.6vw, 30px);
+  border-radius: var(--r-card);
+  background: var(--paper-2);
 }
+.ext-install h3 { font-size: var(--fs-body); letter-spacing: 0; }
 @media (max-width: 459px) {
   .code-box { padding: 14px; }
   .code-box .copy-btn { width: 100%; }
   .install-card .soon-pill { font-size: .8125rem; padding-inline: 10px 11px; }
   .install-steps li { padding-left: 40px; }
 }
-
-.requirements { margin-top: 28px; display: grid; gap: 4px; font-size: var(--fs-small); color: var(--soft); }
-.requirements strong { color: var(--muted); font-weight: 700; }
 
 /* ---- FAQ ---- */
 .faq-list details { border-bottom: 1px solid var(--line); }
@@ -837,26 +774,27 @@ details[open] > summary .pm::after { transform: translate(-50%, -50%) rotate(0de
 .faq-body { padding: 0 48px 22px 0; color: var(--muted); }
 @media (max-width: 899px) { .faq-body { padding-right: 0; } }
 
-/* ---- Creator ---- */
-.creator-inner > * { max-width: 760px; }
-.creator-head { display: flex; align-items: center; gap: 18px; }
+/* ---- Creator: one quiet note ---- */
+.creator { padding-block: clamp(40px, 4.4vw, 56px); }
+.creator-inner { display: flex; align-items: flex-start; gap: 20px; }
+.creator-text { max-width: 720px; }
 .avatar {
-  width: 56px; height: 56px; border-radius: 50%;
+  width: 48px; height: 48px; border-radius: 50%;
   display: grid; place-items: center; flex: none;
   background: var(--btn); color: #fff;
-  font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.0625rem; letter-spacing: -0.02em;
 }
-.creator .note { margin-top: 26px; font-size: var(--fs-h3); line-height: 1.55; }
-.creator .faith { margin-top: 10px; color: var(--muted); }
-.byline { margin-top: 22px; }
-.signature { font-style: italic; font-weight: 500; font-size: var(--fs-h3); letter-spacing: -0.01em; }
-.byline .meta { margin-top: 2px; font-size: var(--fs-small); color: var(--soft); }
-.support { margin-top: 28px; font-size: var(--fs-small); color: var(--muted); }
-.support .arrow-link { margin-left: .25em; white-space: nowrap; }
-@media (max-width: 559px) {
-  .creator-head { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .avatar { width: 48px; height: 48px; font-size: 1.0625rem; }
-  .creator .note { font-size: var(--fs-body); margin-top: 18px; }
+.creator-title { font-size: var(--fs-h3); line-height: 1.3; letter-spacing: -0.015em; }
+.creator .note { margin-top: 8px; color: var(--muted); }
+.creator .note .line { display: block; }
+.creator .faith { margin-top: 6px; color: var(--muted); }
+.creator .support { margin-top: 12px; font-size: var(--fs-small); }
+@media (max-width: 559px) {          /* phones: the avatar sits beside the heading; the note gets the full width */
+  .creator-inner { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 0 14px; }
+  .creator-text { display: contents; }
+  .creator-text > :not(.creator-title) { grid-column: 1 / -1; }
+  .creator .note { margin-top: 14px; }
+  .avatar { width: 40px; height: 40px; font-size: .9375rem; }
 }
 
 /* ==========================================================================
@@ -909,19 +847,13 @@ details[open] > summary .pm::after { transform: translate(-50%, -50%) rotate(0de
       scale .8s var(--ease) var(--d, 0s);
   }
   .reveal-on .r.is-pending { opacity: 0; translate: 0 26px; transition: none; }   /* hide at once; animate only the way in */
-  .reveal-on .r--side.is-pending { translate: 56px 0; }            /* the extension popup */
-  .reveal-on .r--row.is-pending { translate: -20px 0; }            /* comparison rows */
-  .reveal-on .r--lift.is-pending { translate: 0 36px; scale: .97; } /* install cards */
+  .reveal-on .r--lift.is-pending { translate: 0 36px; scale: .97; } /* the install card */
 
   /* how it works: each number pops after its step arrives, then the line to the next one draws */
   .reveal-on .step .step-num { transition: scale .55s cubic-bezier(.3, 1.5, .5, 1) calc(var(--d, 0s) + .12s), opacity .3s ease calc(var(--d, 0s) + .12s); }
   .reveal-on .step.is-pending .step-num { scale: .3; opacity: 0; transition: none; }
   .reveal-on .step::before { transition: scale .6s var(--ease) calc(var(--d, 0s) + .3s); }
   .reveal-on .step.is-pending::before { scale: 0 1; transition: none; }
-
-  /* the UBridge column's tint sweeps down */
-  .reveal-on .r--col { transition: scale 1.1s var(--ease) calc(var(--d, 0s) + .1s), opacity .5s ease calc(var(--d, 0s) + .1s); }
-  .reveal-on .r--col.is-pending { translate: none; scale: 1 0; }
 
   /* FAQ and the extension disclosure: the answer fades in under a smooth height change */
   details[open] > .faq-body, details[open] > .disclosure-body { animation: ub-open .5s var(--ease); }

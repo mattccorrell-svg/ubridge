@@ -1,7 +1,7 @@
 const UB_CONFIG = {
   downloadUrl: "downloads/ubridge.ankiaddon",   // the add-on file, next to the page (null hides every Download button)
   downloadVersion: "1.0",   // manifest.json human_version of that file
-  downloadSize: "118 KB",   // its size: 118,276 bytes, as a Mac shows it (1 KB = 1000 bytes)
+  downloadSize: "124 KB",   // its size: 124,250 bytes, as a Mac shows it (1 KB = 1000 bytes)
   ankiwebId: null,          // e.g. "1234567890" once published -> install code + AnkiWeb link appear too
   chromeStoreUrl: null,     // Chrome Web Store URL once listed
   githubUrl: "https://github.com/mattccorrell-svg/anki-addons",
