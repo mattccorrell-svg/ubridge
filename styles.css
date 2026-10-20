@@ -244,7 +244,7 @@ h1, h2 { letter-spacing: -0.03em; line-height: 1.08; }
 h2 { font-size: var(--fs-h2); }
 h3, h4 { font-size: var(--fs-h3); line-height: 1.3; letter-spacing: -0.015em; }
 p { text-wrap: pretty; }
-.lead { font-size: var(--fs-h3); line-height: 1.5; color: var(--muted); }
+.lead { font-size: var(--fs-h3); line-height: 1.5; color: var(--muted); text-wrap: balance; }
 
 /* App UI labels (Find Questions, Copy & mark used...) */
 .ui { font-weight: 700; color: var(--ink); }
@@ -496,7 +496,7 @@ html:not(.js) .theme-toggle { display: none; }          /* it needs JS to work *
 .indep-link { font-weight: 600; white-space: nowrap; }
 .hero-lead {
   margin-top: 22px;
-  max-width: 34rem;
+  max-width: 38rem;                /* two lines that break at the comma, not inside "question blocks" */
   font-size: var(--fs-h3);
   line-height: 1.5;
   color: var(--muted);
@@ -624,7 +624,7 @@ html:not(.js) .theme-toggle { display: none; }          /* it needs JS to work *
   gap: 40px clamp(24px, 3vw, 40px);
 }
 .f-icon { display: block; width: 24px; height: 24px; color: var(--accent); margin-bottom: 16px; }
-.why-item p { margin-top: 6px; color: var(--muted); }
+.why-item p { margin-top: 6px; color: var(--muted); text-wrap: balance; }   /* short blurbs: no "any block." left alone */
 .why-item .vs {
   margin-top: 14px; padding-top: 12px;
   border-top: 1px solid var(--line);
@@ -660,6 +660,7 @@ html:not(.js) .theme-toggle { display: none; }          /* it needs JS to work *
   min-height: 56px; padding: 14px 0;
   cursor: pointer;
   font-weight: 700; color: var(--accent);
+  text-wrap: balance;
 }
 .disclosure summary::-webkit-details-marker { display: none; }
 .disclosure-body { padding-bottom: 18px; display: grid; gap: 10px; color: var(--muted); font-size: var(--fs-small); line-height: 1.55; }
@@ -697,7 +698,7 @@ details[open] > summary .pm::after { transform: translate(-50%, -50%) rotate(0de
 .install-card .state .code-box { justify-self: stretch; }
 .state-label { font-family: var(--font-text); font-size: var(--fs-body); letter-spacing: 0; }
 .install-steps { list-style: none; counter-reset: istep; display: grid; gap: 14px; }
-.install-steps li { counter-increment: istep; position: relative; padding-left: 42px; line-height: 1.55; min-height: 28px; }
+.install-steps li { counter-increment: istep; position: relative; padding-left: 42px; line-height: 1.55; min-height: 28px; text-wrap: pretty; }
 .install-steps li::before {
   content: counter(istep); position: absolute; left: 0; top: -1px;
   width: 28px; height: 28px; border-radius: 50%;
@@ -767,6 +768,7 @@ details[open] > summary .pm::after { transform: translate(-50%, -50%) rotate(0de
   padding: 14px 0;
   cursor: pointer;
   font-weight: 700; line-height: 1.4;
+  text-wrap: balance;              /* phones: no one-word second line ("supported?") */
   transition: color .25s var(--ease);
 }
 .faq-list summary::-webkit-details-marker { display: none; }
