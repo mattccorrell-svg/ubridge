@@ -637,7 +637,7 @@ html:not(.js) .theme-toggle { display: none; }          /* it needs JS to work *
   .facts { margin-top: 12px; }
   .hero-visual { margin-top: 30px; }
   .hero-arc path { stroke-width: 4.4; }
-  .win { border-radius: var(--r-2); aspect-ratio: 754 / 646; }
+  .win { border-radius: var(--r-2); aspect-ratio: 444 / 672; }
   .shot-tabs { width: min(100%, 400px); margin-bottom: calc(7.2% + 12px); }   /* phones: above the arch's crown */
   .shot-tab { flex: 1 1 0; min-width: 0; gap: 8px; padding-inline: 8px; }
 }
@@ -914,6 +914,60 @@ details[open] > summary .pm::after { transform: translate(-50%, -50%) rotate(0de
 }
 
 /* ==========================================================================
+   survey.html: how UBridge was compared (a plain table, stacked on phones)
+   ========================================================================== */
+.survey { padding-block: clamp(36px, 4.6vw, 64px) var(--section-y); }
+.survey-inner { max-width: 860px; }
+.back-link { font-size: var(--fs-small); min-height: 44px; }
+.back-link .arrow { rotate: 180deg; }
+@media (hover: hover) { .back-link:hover .arrow { transform: translateX(-3px); } }
+.survey h1 { margin-top: 12px; font-size: var(--fs-h2); }
+.survey .lead { margin-top: 18px; max-width: 40em; text-wrap: pretty; }
+.survey-counts {
+  list-style: none;
+  display: flex; flex-wrap: wrap; gap: 14px 40px;
+  margin-top: 32px; padding-block: 20px;
+  border-block: 1px solid var(--line);
+}
+.survey-counts li { display: flex; align-items: baseline; gap: 10px; font-weight: 600; color: var(--muted); }
+.survey-counts b { font-family: var(--font-display); font-size: 2rem; line-height: 1; letter-spacing: -0.03em; color: var(--ink); }
+.survey-counts .is-both b, .survey-counts .is-both span { color: var(--accent); }
+.survey-key { margin-top: 16px; font-size: var(--fs-small); color: var(--soft); }
+.survey-key b { color: var(--muted); }
+.survey-wrap { margin-top: 36px; }
+.survey-table { width: 100%; border-collapse: collapse; font-size: var(--fs-small); line-height: 1.5; }
+.survey-table th, .survey-table td { text-align: left; vertical-align: top; padding: 13px 20px 13px 0; border-bottom: 1px solid var(--line); }
+.survey-table th:last-child, .survey-table td:last-child { padding-right: 0; }
+.survey-table thead th {
+  padding-block: 0 10px;
+  font-size: .8125rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--soft); border-bottom-color: var(--line-strong); white-space: nowrap;
+}
+.survey-table tbody th { font-weight: 600; text-wrap: pretty; }
+.survey-table td { color: var(--muted); white-space: nowrap; }
+.survey-table .dir-both .dir { color: var(--ink); font-weight: 700; }
+.survey-table .ch-yes { color: var(--ink); font-weight: 600; }
+.survey-table .ch-na { color: var(--soft); }
+.survey-table .ub-body th, .survey-table .ub-body td { border-top: 2px solid var(--line-strong); border-bottom: 0; padding-top: 18px; color: var(--ink); font-weight: 700; }
+.ub-this { font-weight: 500; color: var(--soft); }
+.survey-notes { margin-top: 36px; max-width: 44rem; display: grid; gap: 12px; font-size: var(--fs-small); color: var(--soft); }
+.survey-notes b { color: var(--muted); }
+@media (max-width: 599px) {          /* phones: each add-on is a small card: the name, then direction and extension */
+  .survey-counts { display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 12px; }
+  .survey-counts li { flex-direction: column; gap: 6px; font-size: var(--fs-small); line-height: 1.3; }
+  .survey-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .survey-table, .survey-table tbody { display: block; }
+  .survey-table tr { display: flex; flex-wrap: wrap; gap: 4px 18px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .survey-table th, .survey-table td { display: block; padding: 0; border: 0; }
+  .survey-table tbody th { flex-basis: 100%; font-size: var(--fs-body); }
+  .survey-table td::before { content: attr(data-label) ": "; color: var(--soft); font-weight: 500; }
+  .survey-table .ch-na { display: none; }   /* not stated: nothing to show */
+  .survey-table .ub-body tr { border-top: 2px solid var(--line-strong); border-bottom: 0; }
+  .survey-table .ub-body th, .survey-table .ub-body td { border: 0; padding-top: 0; }
+  .survey-notes { gap: 16px; }
+}
+
+/* ==========================================================================
    Footer
    ========================================================================== */
 .site-footer {
@@ -935,6 +989,57 @@ details[open] > summary .pm::after { transform: translate(-50%, -50%) rotate(0de
   .footer-links { gap: 0 20px; }
   .footer-links a { padding-block: 10px; }
   .footer-legal { margin-top: 12px; }
+}
+
+/* ==========================================================================
+   Phones: more air. Bigger gaps between sections, between list items and
+   under headings, and a touch more line height, so no run of lines packs
+   together. Same text sizes. Desktop is untouched.
+   ========================================================================== */
+@media (max-width: 599px) {
+  :root { --section-y: 68px; --head-gap: 36px; }
+  body { line-height: 1.65; }
+  .section-head .lead, .install .split-head .lead { margin-top: 16px; }
+  .split { row-gap: 32px; }
+
+  /* How it works */
+  .steps { row-gap: 52px; }
+  .group-label { margin-bottom: 26px; }
+  .step-list { row-gap: 36px; }
+  .step p { margin-top: 8px; }
+  .step::before { height: calc(100% - 12px); }  /* the connector still stops 8px short of the next number */
+
+  /* Why */
+  .why-grid { gap: 40px; }
+  .why-item p { margin-top: 8px; }
+  .why-item .vs { margin-top: 14px; padding-top: 12px; }
+  .why-notes { margin-top: 44px; gap: 16px; }
+
+  /* Privacy */
+  .promises li { padding: 20px 0; }
+  .promises li:first-child { padding-top: 0; }
+  .disclosure summary { padding-block: 18px; }
+  .disclosure-body { gap: 16px; padding-bottom: 24px; }
+
+  /* Install */
+  .requirements { margin-top: 26px; }
+  .requirements ul { margin-top: 10px; gap: 12px; }
+  .install-card { gap: 24px; }
+  .install-steps { gap: 22px; }
+  .install-steps--dl li:first-child { gap: 14px; }
+  .install .soon-line { gap: 10px 12px; }
+
+  /* FAQ */
+  .faq-list summary { min-height: 64px; padding-block: 18px; }
+  .faq-body { padding-bottom: 26px; }
+
+  /* Creator and footer */
+  .creator { padding-block: 56px; }
+  .creator .note { margin-top: 18px; }
+  .creator .faith { margin-top: 10px; }
+  .creator .support { margin-top: 16px; }
+  .site-footer { padding-top: 36px; }
+  .footer-legal { margin-top: 18px; gap: 8px; }
 }
 
 /* ==========================================================================

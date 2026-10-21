@@ -178,25 +178,25 @@
         <!-- One quiet touch of the logo's bridge: a thin arch over the window -->
         <svg class="hero-arc" viewBox="0 0 1000 100" aria-hidden="true" focusable="false"><path pathLength="1" d="M40 96A1500 1500 0 0 1 960 96"/></svg>
 
-        <!-- Find Cards. Phones get just the right-hand panel (74 cards found, topics), big enough to read at a glance -->
+        <!-- Find Cards. Phones get the add-on's own one-column layout: the pasted IDs, then 74 cards found -->
         <div class="shot-panel is-on" id="shot-fc" role="tabpanel" aria-labelledby="tab-fc">
           <figure class="shot-fig">
             <div class="win">
               <picture class="only-light">
-                <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-cards-panel-light@2x.webp 1508w" sizes="92vw" width="754" height="646">
-                <source media="(max-width: 599px)" srcset="assets/screens/find-cards-panel-light@2x.png 1508w" sizes="92vw" width="754" height="646">
+                <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-cards-phone-light@2x.webp 888w" sizes="92vw" width="444" height="672">
+                <source media="(max-width: 599px)" srcset="assets/screens/find-cards-phone-light@2x.png 888w" sizes="92vw" width="444" height="672">
                 <source type="image/webp" srcset="assets/screens/find-cards-light@1200.webp 1200w, assets/screens/find-cards-light@2x.webp 2400w"
                         sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px" width="1200" height="904">
                 <img src="assets/screens/find-cards-light@2x.png" width="1200" height="904" loading="lazy" fetchpriority="high" decoding="async"
-                     alt="UBridge’s Find Cards tab: 74 Anki cards found from 12 pasted UWorld question IDs, with a Show in Browser button and the topics those cards cover.">
+                     alt="UBridge’s Find Cards tab: 12 pasted UWorld question IDs find 74 Anki cards, with a Show in Browser button.">
               </picture>
               <picture class="only-dark">
-                <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-cards-panel-dark@2x.webp 1508w" sizes="92vw" width="754" height="646">
-                <source media="(max-width: 599px)" srcset="assets/screens/find-cards-panel-dark@2x.png 1508w" sizes="92vw" width="754" height="646">
+                <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-cards-phone-dark@2x.webp 888w" sizes="92vw" width="444" height="672">
+                <source media="(max-width: 599px)" srcset="assets/screens/find-cards-phone-dark@2x.png 888w" sizes="92vw" width="444" height="672">
                 <source type="image/webp" srcset="assets/screens/find-cards-dark@1200.webp 1200w, assets/screens/find-cards-dark@2x.webp 2400w"
                         sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px" width="1200" height="904">
                 <img src="assets/screens/find-cards-dark@2x.png" width="1200" height="904" loading="lazy" fetchpriority="high" decoding="async"
-                     alt="UBridge’s Find Cards tab: 74 Anki cards found from 12 pasted UWorld question IDs, with a Show in Browser button and the topics those cards cover.">
+                     alt="UBridge’s Find Cards tab: 12 pasted UWorld question IDs find 74 Anki cards, with a Show in Browser button.">
               </picture>
             </div>
             <figcaption class="hero-caption">Paste the IDs you missed, see the cards that teach them. Demo data.</figcaption>
@@ -204,21 +204,21 @@
         </div>
 
         <!-- Find Questions. Lazy: script.js lets it load once the page has, so the first tab comes first.
-             Phones get its right-hand card (the stats and the ready-to-paste blocks). -->
+             Phones get the chosen topic, then Find UWorld questions, the stats and the first block. -->
         <div class="shot-panel" id="shot-fq" role="tabpanel" aria-labelledby="tab-fq" hidden>
           <figure class="shot-fig">
             <div class="win">
               <picture class="only-light">
-                <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-questions-panel-light@2x.webp 1508w" sizes="92vw" width="754" height="646">
-                <source media="(max-width: 599px)" srcset="assets/screens/find-questions-panel-light@2x.png 1508w" sizes="92vw" width="754" height="646">
+                <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-questions-phone-light@2x.webp 888w" sizes="92vw" width="444" height="672">
+                <source media="(max-width: 599px)" srcset="assets/screens/find-questions-phone-light@2x.png 888w" sizes="92vw" width="444" height="672">
                 <source type="image/webp" srcset="assets/screens/find-questions-light@1200.webp 1200w, assets/screens/find-questions-light@2x.webp 2400w"
                         sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px" width="1200" height="895">
                 <img src="assets/screens/find-questions-light@2x.png" width="1200" height="895" loading="lazy" decoding="async"
                      alt="UBridge’s Find Questions tab: the UWorld questions behind your chosen Anki topics, split into ready-to-paste blocks of 40, each with Copy and Copy &amp; mark used buttons.">
               </picture>
               <picture class="only-dark">
-                <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-questions-panel-dark@2x.webp 1508w" sizes="92vw" width="754" height="646">
-                <source media="(max-width: 599px)" srcset="assets/screens/find-questions-panel-dark@2x.png 1508w" sizes="92vw" width="754" height="646">
+                <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-questions-phone-dark@2x.webp 888w" sizes="92vw" width="444" height="672">
+                <source media="(max-width: 599px)" srcset="assets/screens/find-questions-phone-dark@2x.png 888w" sizes="92vw" width="444" height="672">
                 <source type="image/webp" srcset="assets/screens/find-questions-dark@1200.webp 1200w, assets/screens/find-questions-dark@2x.webp 2400w"
                         sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px" width="1200" height="895">
                 <img src="assets/screens/find-questions-dark@2x.png" width="1200" height="895" loading="lazy" decoding="async"
@@ -296,7 +296,7 @@
       </li>
     </ul>
     <div class="why-notes r">
-      <p>Based on a survey of 25 UWorld-related add-ons on AnkiWeb in October 2026.</p>
+      <p>Based on a <a href="survey.html">survey of 25 UWorld-related add-ons on AnkiWeb</a> in October 2026.</p>
       <p class="soon-note" data-when="chrome-a">Coming soon to the Chrome Web Store: an optional extension to send missed question IDs from UWorld results to Anki in one click.</p>
       <p class="soon-note soon-note--live" data-when="chrome-b" hidden><span>Also free: the optional Chrome extension sends missed question IDs from UWorld results to Anki in one click. <a data-href="chromeStoreUrl" href="#install" target="_blank" rel="noopener">Add to Chrome<span class="visually-hidden"> (opens the Chrome Web Store)</span></a></span></p>
     </div>
