@@ -90,6 +90,9 @@
   <symbol id="i-both" viewBox="0 0 24 24"><path d="M4 8h14.5M15 4.5 18.5 8 15 11.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 16H5.5M9 12.5 5.5 16 9 19.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-blocks" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7.25" height="7.25" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="13.25" y="3.5" width="7.25" height="7.25" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3.5" y="13.25" width="7.25" height="7.25" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="13.25" y="13.25" width="7.25" height="7.25" rx="1.8" fill="currentColor" stroke="currentColor" stroke-width="1.8"/></symbol>
   <symbol id="i-history" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4.5V8.5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4.3l2.8 1.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <!-- The add-on's own tab icons: Find Cards (inbox), Find Questions (layers) -->
+  <symbol id="i-inbox" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></g></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 10 5-10 5L2 7l10-5z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></g></symbol>
   <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></symbol>
 </svg>
 
@@ -166,30 +169,68 @@
 
   <div class="container hero-visual">
     <div class="hero-shot">
-      <!-- One quiet touch of the logo's bridge: a thin arch over the window -->
-      <svg class="hero-arc" viewBox="0 0 1000 100" aria-hidden="true" focusable="false"><path pathLength="1" d="M40 96A1500 1500 0 0 1 960 96"/></svg>
-      <!-- Phones get just the right-hand panel (74 cards found, topics), big enough to read at a glance -->
-      <figure class="win">
-        <picture class="only-light">
-          <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-cards-panel-light@2x.webp 1508w" sizes="92vw" width="754" height="528">
-          <source media="(max-width: 599px)" srcset="assets/screens/find-cards-panel-light@2x.png 1508w" sizes="92vw" width="754" height="528">
-          <source type="image/webp" srcset="assets/screens/find-cards-light@1200.webp 1200w, assets/screens/find-cards-light@2x.webp 2400w"
-                  sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px">
-          <img src="assets/screens/find-cards-light@2x.png" width="1200" height="906" loading="lazy" fetchpriority="high" decoding="async"
-               alt="UBridge’s Find Cards tab: 74 Anki cards found from 12 pasted UWorld question IDs, with a Show in Browser button and the topics those cards cover.">
-        </picture>
-        <picture class="only-dark">
-          <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-cards-panel-dark@2x.webp 1508w" sizes="92vw" width="754" height="528">
-          <source media="(max-width: 599px)" srcset="assets/screens/find-cards-panel-dark@2x.png 1508w" sizes="92vw" width="754" height="528">
-          <source type="image/webp" srcset="assets/screens/find-cards-dark@1200.webp 1200w, assets/screens/find-cards-dark@2x.webp 2400w"
-                  sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px">
-          <img src="assets/screens/find-cards-dark@2x.png" width="1200" height="906" loading="lazy" fetchpriority="high" decoding="async"
-               alt="UBridge’s Find Cards tab: 74 Anki cards found from 12 pasted UWorld question IDs, with a Show in Browser button and the topics those cards cover.">
-        </picture>
-      </figure>
-      <!-- Both copies are lazy so the other theme's never downloads; the one on show loads right away -->
-      <script>document.querySelectorAll(".hero-shot img").forEach(function (i) { if (i.offsetParent) i.loading = "eager"; });</script>
-      <p class="hero-caption"><span class="ui">Find Cards:</span> paste the IDs you missed, see the cards that teach them. Demo data.</p>
+      <!-- The add-on's two tabs, UWorld -> Anki first. Shown by script.js; without JS, Find Cards alone. -->
+      <div class="shot-tabs" role="tablist" aria-label="UBridge’s two tabs" hidden>
+        <button class="shot-tab" type="button" role="tab" id="tab-fc" aria-selected="true" aria-controls="shot-fc" tabindex="0"><svg class="shot-tab-icon" aria-hidden="true"><use href="#i-inbox"/></svg><span class="shot-tab-text"><span class="shot-tab-name">Find Cards</span><span class="shot-tab-dir">UWorld&nbsp;<span aria-hidden="true">→</span><span class="visually-hidden">to</span> Anki</span></span></button>
+        <button class="shot-tab" type="button" role="tab" id="tab-fq" aria-selected="false" aria-controls="shot-fq" tabindex="-1"><svg class="shot-tab-icon" aria-hidden="true"><use href="#i-layers"/></svg><span class="shot-tab-text"><span class="shot-tab-name">Find Questions</span><span class="shot-tab-dir">Anki&nbsp;<span aria-hidden="true">→</span><span class="visually-hidden">to</span> UWorld</span></span></button>
+      </div>
+      <div class="shot-stage">
+        <!-- One quiet touch of the logo's bridge: a thin arch over the window -->
+        <svg class="hero-arc" viewBox="0 0 1000 100" aria-hidden="true" focusable="false"><path pathLength="1" d="M40 96A1500 1500 0 0 1 960 96"/></svg>
+
+        <!-- Find Cards. Phones get just the right-hand panel (74 cards found, topics), big enough to read at a glance -->
+        <div class="shot-panel is-on" id="shot-fc" role="tabpanel" aria-labelledby="tab-fc">
+          <figure class="shot-fig">
+            <div class="win">
+              <picture class="only-light">
+                <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-cards-panel-light@2x.webp 1508w" sizes="92vw" width="754" height="646">
+                <source media="(max-width: 599px)" srcset="assets/screens/find-cards-panel-light@2x.png 1508w" sizes="92vw" width="754" height="646">
+                <source type="image/webp" srcset="assets/screens/find-cards-light@1200.webp 1200w, assets/screens/find-cards-light@2x.webp 2400w"
+                        sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px" width="1200" height="904">
+                <img src="assets/screens/find-cards-light@2x.png" width="1200" height="904" loading="lazy" fetchpriority="high" decoding="async"
+                     alt="UBridge’s Find Cards tab: 74 Anki cards found from 12 pasted UWorld question IDs, with a Show in Browser button and the topics those cards cover.">
+              </picture>
+              <picture class="only-dark">
+                <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-cards-panel-dark@2x.webp 1508w" sizes="92vw" width="754" height="646">
+                <source media="(max-width: 599px)" srcset="assets/screens/find-cards-panel-dark@2x.png 1508w" sizes="92vw" width="754" height="646">
+                <source type="image/webp" srcset="assets/screens/find-cards-dark@1200.webp 1200w, assets/screens/find-cards-dark@2x.webp 2400w"
+                        sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px" width="1200" height="904">
+                <img src="assets/screens/find-cards-dark@2x.png" width="1200" height="904" loading="lazy" fetchpriority="high" decoding="async"
+                     alt="UBridge’s Find Cards tab: 74 Anki cards found from 12 pasted UWorld question IDs, with a Show in Browser button and the topics those cards cover.">
+              </picture>
+            </div>
+            <figcaption class="hero-caption">Paste the IDs you missed, see the cards that teach them. Demo data.</figcaption>
+          </figure>
+        </div>
+
+        <!-- Find Questions. Lazy: script.js lets it load once the page has, so the first tab comes first.
+             Phones get its right-hand card (the stats and the ready-to-paste blocks). -->
+        <div class="shot-panel" id="shot-fq" role="tabpanel" aria-labelledby="tab-fq" hidden>
+          <figure class="shot-fig">
+            <div class="win">
+              <picture class="only-light">
+                <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-questions-panel-light@2x.webp 1508w" sizes="92vw" width="754" height="646">
+                <source media="(max-width: 599px)" srcset="assets/screens/find-questions-panel-light@2x.png 1508w" sizes="92vw" width="754" height="646">
+                <source type="image/webp" srcset="assets/screens/find-questions-light@1200.webp 1200w, assets/screens/find-questions-light@2x.webp 2400w"
+                        sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px" width="1200" height="895">
+                <img src="assets/screens/find-questions-light@2x.png" width="1200" height="895" loading="lazy" decoding="async"
+                     alt="UBridge’s Find Questions tab: the UWorld questions behind your chosen Anki topics, split into ready-to-paste blocks of 40, each with Copy and Copy &amp; mark used buttons.">
+              </picture>
+              <picture class="only-dark">
+                <source media="(max-width: 599px)" type="image/webp" srcset="assets/screens/find-questions-panel-dark@2x.webp 1508w" sizes="92vw" width="754" height="646">
+                <source media="(max-width: 599px)" srcset="assets/screens/find-questions-panel-dark@2x.png 1508w" sizes="92vw" width="754" height="646">
+                <source type="image/webp" srcset="assets/screens/find-questions-dark@1200.webp 1200w, assets/screens/find-questions-dark@2x.webp 2400w"
+                        sizes="(max-width: 599px) 92vw, (max-width: 1100px) 88vw, 960px" width="1200" height="895">
+                <img src="assets/screens/find-questions-dark@2x.png" width="1200" height="895" loading="lazy" decoding="async"
+                     alt="UBridge’s Find Questions tab: the UWorld questions behind your chosen Anki topics, split into ready-to-paste blocks of 40, each with Copy and Copy &amp; mark used buttons.">
+              </picture>
+            </div>
+            <figcaption class="hero-caption">Pick topics, get ready-to-paste blocks of UWorld questions. Demo data.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <!-- Both themes' copies are lazy so the other theme's never downloads; the one on show loads right away -->
+      <script>document.querySelectorAll("#shot-fc img").forEach(function (i) { if (i.offsetParent) i.loading = "eager"; });</script>
     </div>
   </div>
 </section>

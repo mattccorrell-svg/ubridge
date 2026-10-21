@@ -333,6 +333,77 @@ const UB_CONFIG = {
     }).observe(el);
   }
 
+  /* ---------- Hero tabs: Find Cards / Find Questions, like the add-on's own switch ----------
+     ARIA tabs with a roving tabindex (Left/Right, Home/End). The new shot fades in over the old
+     one (instant with reduced motion). Find Questions starts hidden and lazy: it's let in to load
+     once the page has, or as soon as someone points at its tab. Without JS: Find Cards alone. */
+  function setupHeroTabs() {
+    const list = document.querySelector(".shot-tabs");
+    if (!list) return;
+    const tabs = Array.from(list.querySelectorAll('[role="tab"]'));
+    const panelOf = (tab) => document.getElementById(tab.getAttribute("aria-controls"));
+    const wake = (panel) => {                       // let a hidden panel's lazy images load, still unseen
+      if (!panel.hidden) return;
+      panel.classList.add("is-off");
+      panel.hidden = false;
+      panel.querySelectorAll("img").forEach((i) => { if (i.offsetParent) i.loading = "eager"; });   // this theme's copy only
+    };
+    const ready = (panel) => {                      // wait (briefly) for the shot on show to decode
+      const img = Array.from(panel.querySelectorAll("img")).find((i) => i.offsetParent);
+      if (!img || (img.complete && img.naturalWidth)) return Promise.resolve();
+      const done = img.decode ? img.decode().catch(() => {}) : new Promise((r) => { img.onload = img.onerror = r; });
+      return Promise.race([done, new Promise((r) => setTimeout(r, 700))]);
+    };
+    let current = tabs.find((t) => t.getAttribute("aria-selected") === "true") || tabs[0];
+    let pending = 0;
+    const select = (tab, focus) => {
+      if (focus) tab.focus();
+      if (tab === current) return;
+      const from = panelOf(current), to = panelOf(tab);
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.tabIndex = on ? 0 : -1;
+      });
+      current = tab;
+      const ticket = ++pending;
+      wake(to);
+      ready(to).then(() => {
+        if (ticket !== pending) return;             // a quicker second click won
+        tabs.forEach((t) => {
+          const p = panelOf(t);
+          if (p !== to && p.classList.contains("is-on")) { p.classList.remove("is-on"); p.classList.add("is-off"); }
+        });
+        if (from !== to) {
+          to.classList.add("is-entering", "is-on");
+          to.classList.remove("is-off");
+          void to.offsetWidth;                      // start the fade from 0
+          to.classList.remove("is-entering");
+        }
+      });
+    };
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => select(tab, false));
+      tab.addEventListener("keydown", (e) => {
+        let j = -1;
+        if (e.key === "ArrowRight") j = (i + 1) % tabs.length;
+        else if (e.key === "ArrowLeft") j = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === "Home") j = 0;
+        else if (e.key === "End") j = tabs.length - 1;
+        if (j < 0) return;
+        e.preventDefault();
+        select(tabs[j], true);
+      });
+      tab.addEventListener("pointerenter", () => wake(panelOf(tab)), { once: true });
+      tab.addEventListener("focus", () => wake(panelOf(tab)), { once: true });
+    });
+    list.hidden = false;
+    const wakeAll = () => tabs.forEach((t) => wake(panelOf(t)));
+    const later = () => (window.requestIdleCallback ? requestIdleCallback(wakeAll, { timeout: 2500 }) : setTimeout(wakeAll, 800));
+    if (document.readyState === "complete") later();
+    else window.addEventListener("load", later, { once: true });
+  }
+
   /* ---------- In-page links: smooth on click only (programmatic jumps stay instant); focus follows ---------- */
   function setupAnchors() {
     document.addEventListener("click", (e) => {
@@ -437,5 +508,6 @@ const UB_CONFIG = {
   openLinkedDetails();
   window.addEventListener("hashchange", openLinkedDetails);
   setupReveal();
+  setupHeroTabs();
   setupHeroDepth();
 })();
