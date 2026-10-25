@@ -3,7 +3,7 @@ const UB_CONFIG = {
   downloadVersion: "1.0",   // manifest.json human_version of that file
   downloadSize: "131 KB",   // its size: 130,811 bytes, as a Mac shows it (1 KB = 1000 bytes)
   ankiwebId: null,          // e.g. "1234567890" once published -> install code + AnkiWeb link appear too
-  chromeStoreUrl: null,     // Chrome Web Store URL once listed
+  chromeStoreUrl: "https://chromewebstore.google.com/detail/bpibpcglpcpooipnhocajaldklapkfja", // Chrome Web Store URL once listed
   githubUrl: "https://github.com/mattccorrell-svg/anki-addons",
   issuesUrl: "https://github.com/mattccorrell-svg/anki-addons/issues",
   kofiUrl: "https://ko-fi.com/mccorrell",
