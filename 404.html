@@ -2,62 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>
-  /* GitHub Pages shows this page for any missing address, even a nested one (/ubridge/a/b).
-     There, resolve the links below from the site's own folder; anywhere else they stay relative. */
-  (function () {
-    var parts = location.pathname.split("/");
-    if (/\.github\.io$/.test(location.hostname) && parts.length > 2) {
-      var base = document.createElement("base");
-      base.href = "/" + parts[1] + "/";
-      document.head.appendChild(base);
-    }
-  })();
-</script>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Page not found · UBridge</title>
+<title>UBridge has moved to ubridge.web.app</title>
+<link rel="canonical" href="https://ubridge.web.app/">
 <meta name="robots" content="noindex">
-<meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#08121e" media="(prefers-color-scheme: dark)">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..700&family=Inter+Tight:wght@600..800&display=swap">
-<link rel="stylesheet" href="styles.css?v=40ae01ffec">
-<script>try{var t=localStorage.getItem("ub-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
-<style>
-  .nf {
-    min-height: 100svh;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 18px; padding: 48px var(--gutter);
-    text-align: center;
-  }
-  .nf .wordmark { margin: 0 0 18px; }
-  .nf .wm-mark { width: 62px; height: auto; }
-  .nf h1 { font-size: var(--fs-h2); }
-  .nf p { color: var(--muted); max-width: 30rem; }
-  .nf .btn { margin-top: 10px; }
-  .nf .btn svg { width: 18px; height: 18px; }
-  .nf .disclaimer { margin-top: 28px; font-size: var(--fs-small); color: var(--soft); }
-</style>
+<meta http-equiv="refresh" content="0; url=https://ubridge.web.app/">
+<script>
+  // Keep the page and section: /ubridge/survey.html#x -> ubridge.web.app/survey.html#x
+  var rest = location.pathname.replace(/^\/ubridge\/?/, "");
+  location.replace("https://ubridge.web.app/" + rest + location.search + location.hash);
+</script>
 </head>
-<body>
-<main class="nf" id="main">
-  <a class="wordmark" href="./" aria-label="UBridge home">
-    <img class="wm-mark only-light" src="assets/brand/mark.png" width="62" height="21" alt="">
-    <img class="wm-mark only-dark" src="assets/brand/mark-dark.png" width="62" height="21" alt="">
-    <span class="wm-text" aria-hidden="true">
-      <span class="wm-name"><span class="wm-u">U</span><span class="wm-b">Bridge</span></span>
-      <span class="wm-tag">Questions <span class="wm-arrows">⇄</span> Cards</span>
-    </span>
-  </a>
-  <h1>Page not found</h1>
-  <p>There’s nothing at this address.</p>
-  <a class="btn btn-primary btn-lg" href="./">Go to UBridge<svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h11.5M11 5.5l4.5 4.5-4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-  <p class="disclaimer">UBridge is independent and not affiliated with or endorsed by UWorld, AnKing or Anki.</p>
-</main>
+<body style="font-family: -apple-system, system-ui, sans-serif; padding: 40px 16px; text-align: center;">
+<p>UBridge has moved to <a href="https://ubridge.web.app/">ubridge.web.app</a>.</p>
 </body>
 </html>
